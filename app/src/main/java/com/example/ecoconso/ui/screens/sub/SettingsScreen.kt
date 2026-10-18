@@ -1,0 +1,187 @@
+package com.example.ecoconso.ui.screens.sub
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.ecoconso.ui.components.EcoBottomNavBar
+import com.example.ecoconso.ui.components.EcoCard
+import com.example.ecoconso.ui.components.EcoTopAppBar
+import com.example.ecoconso.ui.theme.EcoBackgroundLight
+import com.example.ecoconso.ui.theme.EcoBorderColor
+import com.example.ecoconso.ui.theme.EcoGreenPrimary
+import com.example.ecoconso.ui.theme.EcoSurfaceWhite
+import com.example.ecoconso.ui.theme.EcoTextMuted
+import com.example.ecoconso.ui.theme.EcoTextPrimary
+import com.example.ecoconso.ui.theme.EcoTextSecondary
+
+@Composable
+fun SettingsScreen(
+    currentRoute: String,
+    onNavigate: (String) -> Unit,
+    onNavigateToNotificationPref: () -> Unit,
+    onNavigateToThresholds: () -> Unit,
+    onNavigateToExport: () -> Unit,
+    onNavigateToAbout: () -> Unit,
+    onNavigateBack: () -> Unit
+) {
+    var limitAnimations by remember { mutableStateOf(false) }
+    var backgroundSync by remember { mutableStateOf(true) }
+
+    Scaffold(
+        topBar = { EcoTopAppBar(title = "Paramètres", onBackClick = onNavigateBack) },
+        bottomBar = { EcoBottomNavBar(currentRoute = currentRoute, onNavigate = onNavigate) }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(EcoBackgroundLight)
+                .padding(paddingValues)
+                .verticalScroll(rememberScrollState())
+                .padding(20.dp)
+        ) {
+            Text("Préférences de l'application", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+            Spacer(modifier = Modifier.height(12.dp))
+
+            EcoCard {
+                // Langue
+                Row(
+                    modifier = Modifier.fillMaxWidth().clickable { }.padding(vertical = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text("Langue", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
+                        Text("Français", fontSize = 12.sp, color = EcoTextSecondary)
+                    }
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                }
+                HorizontalDivider(color = EcoBorderColor)
+
+                // Notifications
+                Row(
+                    modifier = Modifier.fillMaxWidth().clickable { onNavigateToNotificationPref() }.padding(vertical = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text("Notifications", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
+                        Text("Alertes, rapports et conseils", fontSize = 12.sp, color = EcoTextSecondary)
+                    }
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                }
+                HorizontalDivider(color = EcoBorderColor)
+
+                // Seuils et budget
+                Row(
+                    modifier = Modifier.fillMaxWidth().clickable { onNavigateToThresholds() }.padding(vertical = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text("Seuils et budget", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
+                        Text("15 kWh par jour · 55 000 FCFA par mois", fontSize = 12.sp, color = EcoTextSecondary)
+                    }
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                }
+                HorizontalDivider(color = EcoBorderColor)
+
+                // Sobriété numérique
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text("Sobriété numérique", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
+                        Text("Limiter les animations · Interface calme", fontSize = 12.sp, color = EcoTextSecondary)
+                    }
+                    Switch(
+                        checked = limitAnimations,
+                        onCheckedChange = { limitAnimations = it },
+                        colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary)
+                    )
+                }
+                HorizontalDivider(color = EcoBorderColor)
+
+                // Synchronisation en arrière-plan
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text("Synchronisation en arrière-plan", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
+                        Text("Actualiser sans ouvrir l'application", fontSize = 12.sp, color = EcoTextSecondary)
+                    }
+                    Switch(
+                        checked = backgroundSync,
+                        onCheckedChange = { backgroundSync = it },
+                        colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Les données se mettent à jour à l'ouverture de l'application ou lors d'une synchronisation manuelle.", fontSize = 12.sp, color = EcoTextMuted)
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text("Compte et confidentialité", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+            Spacer(modifier = Modifier.height(12.dp))
+
+            EcoCard {
+                Row(
+                    modifier = Modifier.fillMaxWidth().clickable { onNavigateToExport() }.padding(vertical = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text("Exporter mes données", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
+                        Text("Télécharger un PDF ou un CSV", fontSize = 12.sp, color = EcoTextSecondary)
+                    }
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                }
+                HorizontalDivider(color = EcoBorderColor)
+
+                Row(
+                    modifier = Modifier.fillMaxWidth().clickable { onNavigateToAbout() }.padding(vertical = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text("À propos et confidentialité", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
+                        Text("Données utilisées, consentement et droits", fontSize = 12.sp, color = EcoTextSecondary)
+                    }
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                }
+            }
+        }
+    }
+}
