@@ -16,6 +16,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.dp
 import com.example.ecoconso.ui.theme.EcoBorderColor
 import com.example.ecoconso.ui.theme.EcoGreenPrimary
 import com.example.ecoconso.ui.theme.EcoSurfaceWhite
@@ -71,7 +72,7 @@ fun EcoBottomNavBar(
 
     NavigationBar(
         containerColor = EcoSurfaceWhite,
-        tonalElevation = androidx.compose.ui.unit.dp(8)
+        tonalElevation = 8.dp
     ) {
         items.forEach { item ->
             val isSelected = currentRoute == item.route
