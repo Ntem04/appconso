@@ -66,10 +66,10 @@ fun AppliancesScreen(
     onNavigateBack: () -> Unit
 ) {
     val categories = listOf(
-        ApplianceCategory("Électroménager", "Réfrigérateur, lave-linge, four", 45, Icons.Default.Kitchen, EcoGreenPrimary),
-        ApplianceCategory("Chauffage", "Radiateurs du domicile", 30, Icons.Default.Thermostat, EcoSkyBlue),
-        ApplianceCategory("Éclairage", "Ampoules et luminaires", 15, Icons.Default.Lightbulb, EcoGreenPrimary.copy(alpha = 0.8f)),
-        ApplianceCategory("Autres", "Télévision, box et petits appareils", 10, Icons.Default.Tv, EcoTextMuted)
+        ApplianceCategory("Électroménager", "Réfrigérateur, lave-linge, four", 0, Icons.Default.Kitchen, EcoGreenPrimary),
+        ApplianceCategory("Chauffage", "Radiateurs du domicile", 0, Icons.Default.Thermostat, EcoSkyBlue),
+        ApplianceCategory("Éclairage", "Ampoules et luminaires", 0, Icons.Default.Lightbulb, EcoGreenPrimary.copy(alpha = 0.8f)),
+        ApplianceCategory("Autres", "Télévision, box et petits appareils", 0, Icons.Default.Tv, EcoTextMuted)
     )
 
     Scaffold(
@@ -100,10 +100,10 @@ fun AppliancesScreen(
                 Text("Répartition estimée", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                EcoCategoryProgressItem("Électroménager", 45, EcoGreenPrimary)
-                EcoCategoryProgressItem("Chauffage", 30, EcoSkyBlue)
-                EcoCategoryProgressItem("Éclairage", 15, EcoGreenPrimary.copy(alpha = 0.8f))
-                EcoCategoryProgressItem("Autres", 10, EcoTextMuted)
+                EcoCategoryProgressItem("Électroménager", 0, EcoGreenPrimary)
+                EcoCategoryProgressItem("Chauffage", 0, EcoSkyBlue)
+                EcoCategoryProgressItem("Éclairage", 0, EcoGreenPrimary.copy(alpha = 0.8f))
+                EcoCategoryProgressItem("Autres", 0, EcoTextMuted)
 
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(

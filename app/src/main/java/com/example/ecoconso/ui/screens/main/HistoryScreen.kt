@@ -52,13 +52,13 @@ fun HistoryScreen(
     onNavigate: (String) -> Unit
 ) {
     val historyList = listOf(
-        DailyHistoryItem("Samedi 27 septembre", "12,4 kWh", "5 000 FCFA"),
-        DailyHistoryItem("Vendredi 26 septembre", "13,5 kWh", "2 000 FCFA"),
-        DailyHistoryItem("Jeudi 25 septembre", "11,8 kWh", "2 500 FCFA"),
-        DailyHistoryItem("Mercredi 24 septembre", "14,2 kWh", "1 000 FCFA"),
-        DailyHistoryItem("Mardi 23 septembre", "12,6 kWh", "4 000 FCFA"),
-        DailyHistoryItem("Lundi 22 septembre", "10,9 kWh", "5 200 FCFA"),
-        DailyHistoryItem("Dimanche 21 septembre", "11,4 kWh", "2 000 FCFA")
+        DailyHistoryItem("Samedi 27 septembre", "0 kWh", "0 FCFA"),
+        DailyHistoryItem("Vendredi 26 septembre", "0 kWh", "0 FCFA"),
+        DailyHistoryItem("Jeudi 25 septembre", "0 kWh", "0 FCFA"),
+        DailyHistoryItem("Mercredi 24 septembre", "0 kWh", "0 FCFA"),
+        DailyHistoryItem("Mardi 23 septembre", "0 kWh", "0 FCFA"),
+        DailyHistoryItem("Lundi 22 septembre", "0 kWh", "0 FCFA"),
+        DailyHistoryItem("Dimanche 21 septembre", "0 kWh", "0 FCFA")
     )
 
     Scaffold(
@@ -103,12 +103,12 @@ fun HistoryScreen(
                     Column {
                         Text("Consommation du mois", fontSize = 13.sp, color = EcoTextSecondary)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("324,6 kWh", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                        Text("0 kWh", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                     }
                     Column(horizontalAlignment = Alignment.End) {
                         Text("Coût estimé", fontSize = 13.sp, color = EcoTextSecondary)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("50 000 FCFA", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text("0 FCFA", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
                     }
                 }
             }

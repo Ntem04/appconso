@@ -58,13 +58,13 @@ fun HomeScreen(
     onNavigateToNotifications: () -> Unit
 ) {
     val weeklyData = listOf(
-        BarChartItem("Lun", 10.9f),
-        BarChartItem("Mar", 12.6f),
-        BarChartItem("Mer", 14.2f),
-        BarChartItem("Jeu", 11.8f),
-        BarChartItem("Ven", 13.5f),
-        BarChartItem("Sam", 12.4f, isHighlighted = true),
-        BarChartItem("Dim", 11.4f)
+        BarChartItem("Lun", 0f),
+        BarChartItem("Mar", 0f),
+        BarChartItem("Mer", 0f),
+        BarChartItem("Jeu", 0f),
+        BarChartItem("Ven", 0f),
+        BarChartItem("Sam", 0f, isHighlighted = true),
+        BarChartItem("Dim", 0f)
     )
 
     Scaffold(
@@ -117,8 +117,8 @@ fun HomeScreen(
             // Consommation du jour Card
             EcoStatCard(
                 title = "Consommation du jour",
-                value = "12,4 kWh",
-                badgeText = "8 % par rapport à hier",
+                value = "0 kWh",
+                badgeText = "0 % par rapport à hier",
                 isPositiveChange = true,
                 icon = Icons.Default.ElectricBolt,
                 iconTint = EcoGreenPrimary
@@ -134,7 +134,7 @@ fun HomeScreen(
                 EcoStatCard(
                     modifier = Modifier.weight(1f),
                     title = "Coût estimé",
-                    value = "2 850 FCFA",
+                    value = "0 FCFA",
                     subtitle = "Tarif en vigueur",
                     icon = Icons.Default.Bolt,
                     iconTint = EcoSkyBlue
@@ -143,7 +143,7 @@ fun HomeScreen(
                 EcoStatCard(
                     modifier = Modifier.weight(1f),
                     title = "Puissance",
-                    value = "3,2 kW",
+                    value = "0 kW",
                     subtitle = "Compteur actif",
                     icon = Icons.Default.Speed,
                     iconTint = EcoGreenPrimary
@@ -169,7 +169,7 @@ fun HomeScreen(
                         color = EcoGreenLight
                     ) {
                         Text(
-                            text = "Abonnement: 6 kVA",
+                            text = "Abonnement: 0 kVA",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             color = EcoGreenPrimary,
@@ -193,7 +193,7 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("Total de la semaine", fontSize = 13.sp, color = EcoTextSecondary)
-                    Text("86,8 kWh", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                    Text("0 kWh", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                 }
             }
 

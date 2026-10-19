@@ -63,13 +63,13 @@ fun ConsoDetailScreen(
     val timeTabs = listOf("Jour", "Semaine", "Mois", "Année")
 
     val hourlyData = listOf(
-        BarChartItem("00h", 0.4f),
-        BarChartItem("04h", 0.2f),
-        BarChartItem("08h", 1.8f),
-        BarChartItem("12h", 2.4f),
-        BarChartItem("16h", 3.2f, isHighlighted = true),
-        BarChartItem("20h", 2.9f),
-        BarChartItem("24h", 1.5f)
+        BarChartItem("00h", 0f),
+        BarChartItem("04h", 0f),
+        BarChartItem("08h", 0f),
+        BarChartItem("12h", 0f),
+        BarChartItem("16h", 0f, isHighlighted = true),
+        BarChartItem("20h", 0f),
+        BarChartItem("24h", 0f)
     )
 
     Scaffold(
@@ -157,7 +157,7 @@ fun ConsoDetailScreen(
                                 .background(EcoGreenPrimary.copy(alpha = 0.12f))
                                 .padding(horizontal = 12.dp, vertical = 6.dp)
                         ) {
-                            Text("↓ 8 % vs hier", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                            Text("0 % vs hier", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                         }
                     }
 

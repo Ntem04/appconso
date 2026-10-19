@@ -83,12 +83,11 @@ fun MeterDetailsScreen(
 
                     Column {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("Compteur connecté", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                            Text("Compteur non synchronisé", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
                             Spacer(modifier = Modifier.width(6.dp))
-                            Icon(Icons.Default.CheckCircle, contentDescription = null, tint = EcoGreenPrimary, modifier = Modifier.size(16.dp))
                         }
-                        Text("N° 01234567890123", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoGreenPrimary)
-                        Text("Synchronisé le 27 septembre 2025 à 14:32", fontSize = 12.sp, color = EcoTextMuted)
+                        Text("N° ---", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoGreenPrimary)
+                        Text("En attente de données", fontSize = 12.sp, color = EcoTextMuted)
                     }
                 }
 
@@ -102,11 +101,11 @@ fun MeterDetailsScreen(
                 ) {
                     Column {
                         Text("Puissance actuelle", fontSize = 12.sp, color = EcoTextSecondary)
-                        Text("3,2 kW", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                        Text("0 kW", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                     }
                     Column(horizontalAlignment = Alignment.End) {
                         Text("Puissance souscrite", fontSize = 12.sp, color = EcoTextSecondary)
-                        Text("6 kVA", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text("0 kVA", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
                     }
                 }
             }
@@ -135,10 +134,10 @@ fun MeterDetailsScreen(
                 HorizontalDivider(color = EcoBorderColor)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text("Titulaire : Ntem dilane", fontSize = 13.sp, color = EcoTextPrimary, fontWeight = FontWeight.Medium)
+                Text("Titulaire : ---", fontSize = 13.sp, color = EcoTextPrimary, fontWeight = FontWeight.Medium)
                 Spacer(modifier = Modifier.height(4.dp))
                 Text("Référence d'abonnement", fontSize = 12.sp, color = EcoTextSecondary)
-                Text("AB-2025-01842", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("---", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
             }
 
             Spacer(modifier = Modifier.height(20.dp))

@@ -50,8 +50,8 @@ fun MonthlyReportScreen(
     onNavigateBack: () -> Unit
 ) {
     val monthlyData = listOf(
-        BarChartItem("Août", 345.3f),
-        BarChartItem("Sept", 324.6f, isHighlighted = true)
+        BarChartItem("Août", 0f),
+        BarChartItem("Sept", 0f, isHighlighted = true)
     )
 
     Scaffold(
@@ -79,12 +79,12 @@ fun MonthlyReportScreen(
                     Column {
                         Text("Consommation", fontSize = 13.sp, color = EcoTextSecondary)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("324,6 kWh", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                        Text("0 kWh", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                     }
                     Column(horizontalAlignment = Alignment.End) {
                         Text("Coût estimé", fontSize = 13.sp, color = EcoTextSecondary)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("50 000 FCFA", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text("0 FCFA", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
                     }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
@@ -101,7 +101,7 @@ fun MonthlyReportScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text("Évolution mensuelle", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
-                    Text("↓ 6 %", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                    Text("0 %", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -112,7 +112,7 @@ fun MonthlyReportScreen(
                 HorizontalDivider(color = EcoBorderColor)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text("20,7 kWh de moins qu'en août 2025.", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = EcoGreenPrimary)
+                Text("0 kWh d'écart par rapport au mois précédent.", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = EcoGreenPrimary)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -122,10 +122,10 @@ fun MonthlyReportScreen(
                 Text("Répartition estimée", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                EcoCategoryProgressItem("Électroménager", 45, EcoGreenPrimary)
-                EcoCategoryProgressItem("Chauffage", 30, EcoSkyBlue)
-                EcoCategoryProgressItem("Éclairage", 15, EcoGreenPrimary.copy(alpha = 0.8f))
-                EcoCategoryProgressItem("Autres", 10, EcoTextMuted)
+                EcoCategoryProgressItem("Électroménager", 0, EcoGreenPrimary)
+                EcoCategoryProgressItem("Chauffage", 0, EcoSkyBlue)
+                EcoCategoryProgressItem("Éclairage", 0, EcoGreenPrimary.copy(alpha = 0.8f))
+                EcoCategoryProgressItem("Autres", 0, EcoTextMuted)
 
                 Spacer(modifier = Modifier.height(10.dp))
                 Text("Parts indicatives par catégorie d'appareils.", fontSize = 11.sp, color = EcoTextMuted)
