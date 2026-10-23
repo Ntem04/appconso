@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -52,13 +53,13 @@ fun AddMeterScreen(
     onNavigateBack: () -> Unit,
     onMeterConnected: () -> Unit
 ) {
-    var meterNumber by remember { mutableStateOf("01234567890123") }
+    var meterNumber by remember { mutableStateOf("") }
     var subscriptionRef by remember { mutableStateOf("AB-2025-0184") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Associer un compteur", onBackClick = onNavigateBack)
 
@@ -68,30 +69,30 @@ fun AddMeterScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
         ) {
-            Text("Reliez votre domicile", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+            Text("Reliez votre domicile", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             Text(
                 "Ajoutez votre compteur pour retrouver votre consommation dans l'application.",
                 fontSize = 14.sp,
-                color = EcoTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 4.dp, bottom = 20.dp)
             )
 
             EcoCard {
-                Text("Numéro du compteur", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Numéro du compteur", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = meterNumber,
                     onValueChange = { meterNumber = it },
-                    leadingIcon = { Icon(Icons.Default.ElectricMeter, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.ElectricMeter, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
                 Text("Numéro à 14 chiffres reconnu.", fontSize = 12.sp, color = EcoGreenPrimary, modifier = Modifier.padding(top = 2.dp))
 
                 Spacer(modifier = Modifier.height(14.dp))
 
-                Text("Référence d'abonnement", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Référence d'abonnement", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = subscriptionRef,
@@ -112,11 +113,11 @@ fun AddMeterScreen(
                     Icon(Icons.Default.Info, contentDescription = null, tint = EcoSkyBlue, modifier = Modifier.size(20.dp))
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
-                        Text("Où trouver ces informations ?", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text("Où trouver ces informations ?", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("Le numéro est inscrit sur la face avant du compteur, près du code-barres.", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Le numéro est inscrit sur la face avant du compteur, près du code-barres.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("La référence d'abonnement figure sur votre contrat ou votre facture d'électricité. Ne saisissez pas le numéro de facture.", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("La référence d'abonnement figure sur votre contrat ou votre facture d'électricité. Ne saisissez pas le numéro de facture.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
@@ -124,13 +125,13 @@ fun AddMeterScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             EcoCard {
-                Text("Domicile à associer", fontSize = 13.sp, color = EcoTextSecondary)
-                Text("Résidence principale · Ntem dilane", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Domicile à associer", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text("Compteur à connecter", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Text("Vérifiez les références avant de poursuivre. Seul le compteur de votre domicile doit être relié.", fontSize = 12.sp, color = EcoTextMuted)
+            Text("Vérifiez les références avant de poursuivre. Seul le compteur de votre domicile doit être relié.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -140,7 +141,7 @@ fun AddMeterScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
             ) {
-                Text("Vérifier et connecter mon compteur", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                Text("Vérifier et connecter mon compteur", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
             }
 
             Spacer(modifier = Modifier.height(12.dp))

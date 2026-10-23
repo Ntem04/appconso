@@ -67,7 +67,8 @@ fun ProfileScreen(
 ) {
     Scaffold(
         topBar = { EcoTopAppBar(title = "Profil") },
-        bottomBar = { EcoBottomNavBar(currentRoute = currentRoute, onNavigate = onNavigate) }
+        bottomBar = { EcoBottomNavBar(currentRoute = currentRoute, onNavigate = onNavigate) },
+        containerColor = MaterialTheme.colorScheme.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -90,15 +91,15 @@ fun ProfileScreen(
                             .background(EcoGreenPrimary),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("ND", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                        Text("?", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
                     }
 
                     Spacer(modifier = Modifier.width(16.dp))
 
                     Column {
-                        Text("Ntem dilane", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-                        Text("jean.dupont@email.fr", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Text("06 12 34 56 78", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("Utilisateur", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Profil non synchronisé", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("Données en attente du backend", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
@@ -118,7 +119,7 @@ fun ProfileScreen(
                 ProfileMenuItem(
                     icon = Icons.Default.ElectricMeter,
                     title = "Mon compteur",
-                    subtitle = "N° 01234567890123",
+                    subtitle = "Aucun compteur enregistré",
                     onClick = onNavigateToMeterDetails
                 )
                 HorizontalDivider(color = MaterialTheme.colorScheme.outline)
@@ -227,7 +228,7 @@ fun ProfileMenuItem(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(EcoGreenLight),
+                    .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(imageVector = icon, contentDescription = null, tint = EcoGreenPrimary, modifier = Modifier.size(20.dp))

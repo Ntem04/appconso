@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ecoconso.ui.components.EcoBottomNavBar
 import com.example.ecoconso.ui.components.EcoCard
+import com.example.ecoconso.ui.components.EcoEmptyState
 import com.example.ecoconso.ui.components.EcoTopAppBar
 import com.example.ecoconso.ui.theme.EcoGreenPrimary
 
@@ -47,19 +48,12 @@ fun HistoryScreen(
     currentRoute: String,
     onNavigate: (String) -> Unit
 ) {
-    val historyList = listOf(
-        DailyHistoryItem("Samedi 27 septembre", "0 kWh", "0 FCFA"),
-        DailyHistoryItem("Vendredi 26 septembre", "0 kWh", "0 FCFA"),
-        DailyHistoryItem("Jeudi 25 septembre", "0 kWh", "0 FCFA"),
-        DailyHistoryItem("Mercredi 24 septembre", "0 kWh", "0 FCFA"),
-        DailyHistoryItem("Mardi 23 septembre", "0 kWh", "0 FCFA"),
-        DailyHistoryItem("Lundi 22 septembre", "0 kWh", "0 FCFA"),
-        DailyHistoryItem("Dimanche 21 septembre", "0 kWh", "0 FCFA")
-    )
+    val historyList = emptyList<DailyHistoryItem>()
 
     Scaffold(
         topBar = { EcoTopAppBar(title = "Historique") },
-        bottomBar = { EcoBottomNavBar(currentRoute = currentRoute, onNavigate = onNavigate) }
+        bottomBar = { EcoBottomNavBar(currentRoute = currentRoute, onNavigate = onNavigate) },
+        containerColor = MaterialTheme.colorScheme.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -97,7 +91,7 @@ fun HistoryScreen(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Septembre 2025",
+                            text = "Sélectionner une période",
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurface
@@ -128,7 +122,7 @@ fun HistoryScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "0 kWh",
+                            text = "—",
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold,
                             color = EcoGreenPrimary
@@ -142,7 +136,7 @@ fun HistoryScreen(
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "0 FCFA",
+                            text = "—",
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurface
@@ -168,6 +162,9 @@ fun HistoryScreen(
 
             // History List Card
             EcoCard {
+                if (historyList.isEmpty()) {
+                    EcoEmptyState("L'historique sera disponible après réception des données.")
+                }
                 historyList.forEachIndexed { index, item ->
                     Row(
                         modifier = Modifier

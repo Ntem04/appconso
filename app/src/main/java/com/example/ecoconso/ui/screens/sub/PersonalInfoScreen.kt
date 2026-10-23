@@ -49,8 +49,8 @@ fun PersonalInfoScreen(
     onNavigateBack: () -> Unit,
     onNavigateToChangePassword: () -> Unit
 ) {
-    var fullName by remember { mutableStateOf("Ntem dilane") }
-    var email by remember { mutableStateOf("jean.dupont@email.fr") }
+    var fullName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("06 12 34 56 78") }
     var isSaved by remember { mutableStateOf(false) }
 
@@ -132,7 +132,7 @@ fun PersonalInfoScreen(
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
                 ) {
-                    Text("Enregistrer les modifications", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                    Text("Enregistrer les modifications", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
                 }
 
                 if (isSaved) {
@@ -141,7 +141,7 @@ fun PersonalInfoScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
-                            .background(EcoGreenLight)
+                            .background(MaterialTheme.colorScheme.primaryContainer)
                             .padding(10.dp)
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {

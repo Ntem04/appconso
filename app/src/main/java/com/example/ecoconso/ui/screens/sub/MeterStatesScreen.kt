@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -60,13 +61,13 @@ fun MeterStatesScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Ma consommation", onBackClick = onNavigateBack)
 
         TabRow(
             selectedTabIndex = selectedStateTab,
-            containerColor = EcoSurfaceWhite,
+            containerColor = MaterialTheme.colorScheme.onPrimary,
             indicator = { tabPositions ->
                 TabRowDefaults.SecondaryIndicator(
                     modifier = Modifier.tabIndicatorOffset(tabPositions[selectedStateTab]),
@@ -83,7 +84,7 @@ fun MeterStatesScreen(
                             text = title,
                             fontSize = 12.sp,
                             fontWeight = if (selectedStateTab == index) FontWeight.Bold else FontWeight.Normal,
-                            color = if (selectedStateTab == index) EcoGreenPrimary else EcoTextSecondary
+                            color = if (selectedStateTab == index) EcoGreenPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 )
@@ -110,9 +111,9 @@ fun MeterStatesScreen(
                         ) {
                             CircularProgressIndicator(color = EcoGreenPrimary, modifier = Modifier.size(48.dp))
                             Spacer(modifier = Modifier.height(20.dp))
-                            Text("Chargement de vos données...", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                            Text("Chargement de vos données...", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             Spacer(modifier = Modifier.height(6.dp))
-                            Text("Veuillez patienter, nous récupérons votre consommation électrique.", fontSize = 13.sp, color = EcoTextSecondary, textAlign = TextAlign.Center)
+                            Text("Veuillez patienter, nous récupérons votre consommation électrique.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
                         }
                     }
                 }
@@ -124,15 +125,15 @@ fun MeterStatesScreen(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Box(
-                                modifier = Modifier.size(60.dp).clip(CircleShape).background(EcoGreenLight),
+                                modifier = Modifier.size(60.dp).clip(CircleShape).background(MaterialTheme.colorScheme.primaryContainer),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Icon(Icons.Default.ElectricMeter, contentDescription = null, tint = EcoGreenPrimary, modifier = Modifier.size(32.dp))
                             }
                             Spacer(modifier = Modifier.height(16.dp))
-                            Text("Aucune donnée disponible", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                            Text("Aucune donnée disponible", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             Spacer(modifier = Modifier.height(6.dp))
-                            Text("Votre compteur n'est pas encore relié.\nAjoutez-le pour suivre votre consommation.", fontSize = 13.sp, color = EcoTextSecondary, textAlign = TextAlign.Center)
+                            Text("Votre compteur n'est pas encore relié.\nAjoutez-le pour suivre votre consommation.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
                             Spacer(modifier = Modifier.height(20.dp))
                             Button(
                                 onClick = onNavigateToAddMeter,
@@ -140,7 +141,7 @@ fun MeterStatesScreen(
                                 shape = RoundedCornerShape(12.dp),
                                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
                             ) {
-                                Text("Relier mon compteur", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                                Text("Relier mon compteur", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
                             }
                         }
                     }
@@ -159,9 +160,9 @@ fun MeterStatesScreen(
                                 Icon(Icons.Default.SignalCellularConnectedNoInternet4Bar, contentDescription = null, tint = EcoRedError, modifier = Modifier.size(32.dp))
                             }
                             Spacer(modifier = Modifier.height(16.dp))
-                            Text("Impossible de charger les données", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                            Text("Impossible de charger les données", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             Spacer(modifier = Modifier.height(6.dp))
-                            Text("Vérifiez votre connexion Internet, puis réessayez. Vos données sont conservées.", fontSize = 13.sp, color = EcoTextSecondary, textAlign = TextAlign.Center)
+                            Text("Vérifiez votre connexion Internet, puis réessayez. Vos données sont conservées.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
                             Spacer(modifier = Modifier.height(20.dp))
                             OutlinedButton(
                                 onClick = { },
@@ -176,7 +177,7 @@ fun MeterStatesScreen(
             }
 
             Spacer(modifier = Modifier.height(30.dp))
-            Text("Pas de données, pas de dépense inutile : une interface légère, même en attente.", fontSize = 12.sp, color = EcoTextMuted, textAlign = TextAlign.Center)
+            Text("Pas de données, pas de dépense inutile : une interface légère, même en attente.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, textAlign = TextAlign.Center)
         }
     }
 }

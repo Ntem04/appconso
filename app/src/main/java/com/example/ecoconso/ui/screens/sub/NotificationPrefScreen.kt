@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -56,7 +57,7 @@ fun NotificationPrefScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Préférences de notifications", onBackClick = onNavigateBack)
 
@@ -66,83 +67,83 @@ fun NotificationPrefScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
         ) {
-            Text("Choisissez les informations que vous souhaitez recevoir.", fontSize = 14.sp, color = EcoTextSecondary, modifier = Modifier.padding(bottom = 16.dp))
+            Text("Choisissez les informations que vous souhaitez recevoir.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(bottom = 16.dp))
 
-            Text("Types de notifications", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+            Text("Types de notifications", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.height(12.dp))
 
             EcoCard {
                 Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Alertes de consommation", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Dépassement du seuil ou du budget", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Alertes de consommation", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Dépassement du seuil ou du budget", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Switch(checked = alertConso, onCheckedChange = { alertConso = it }, colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary))
+                    Switch(checked = alertConso, onCheckedChange = { alertConso = it }, colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary))
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Maintenance du réseau", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Interventions annoncées dans votre secteur", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Maintenance du réseau", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Interventions annoncées dans votre secteur", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Switch(checked = maintenanceReseau, onCheckedChange = { maintenanceReseau = it }, colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary))
+                    Switch(checked = maintenanceReseau, onCheckedChange = { maintenanceReseau = it }, colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary))
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Rapports mensuels", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Un message lorsque votre bilan est disponible", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Rapports mensuels", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Un message lorsque votre bilan est disponible", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Switch(checked = rapportsMensuels, onCheckedChange = { rapportsMensuels = it }, colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary))
+                    Switch(checked = rapportsMensuels, onCheckedChange = { rapportsMensuels = it }, colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary))
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Conseils économies", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Des gestes simples, sans publicité", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Conseils économies", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Des gestes simples, sans publicité", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Switch(checked = conseilsEconomies, onCheckedChange = { conseilsEconomies = it }, colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary))
+                    Switch(checked = conseilsEconomies, onCheckedChange = { conseilsEconomies = it }, colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary))
                 }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text("Canaux de réception", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+            Text("Canaux de réception", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.height(12.dp))
 
             EcoCard {
                 Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Sur mon téléphone", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Notifications de l'application", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Sur mon téléphone", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Notifications de l'application", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Switch(checked = pushEnabled, onCheckedChange = { pushEnabled = it }, colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary))
+                    Switch(checked = pushEnabled, onCheckedChange = { pushEnabled = it }, colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary))
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Par e-mail", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("jean.dupont@email.fr", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Par e-mail", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Adresse e-mail non configurée", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Switch(checked = emailEnabled, onCheckedChange = { emailEnabled = it }, colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary))
+                    Switch(checked = emailEnabled, onCheckedChange = { emailEnabled = it }, colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary))
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 Row(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Par SMS", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("06 12 34 56 78", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Par SMS", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("06 12 34 56 78", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Switch(checked = smsEnabled, onCheckedChange = { smsEnabled = it }, colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary))
+                    Switch(checked = smsEnabled, onCheckedChange = { smsEnabled = it }, colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary))
                 }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Seuls les types activés sont envoyés sur les canaux choisis. Les messages restent consultables dans l'application.", fontSize = 12.sp, color = EcoTextMuted)
+            Text("Seuls les types activés sont envoyés sur les canaux choisis. Les messages restent consultables dans l'application.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -152,7 +153,7 @@ fun NotificationPrefScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
             ) {
-                Text("Enregistrer mes préférences", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                Text("Enregistrer mes préférences", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
             }
 
             Spacer(modifier = Modifier.height(12.dp))

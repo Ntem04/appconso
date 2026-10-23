@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -62,7 +63,7 @@ fun SupportFaqScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Aide et contact", onBackClick = onNavigateBack)
 
@@ -72,79 +73,79 @@ fun SupportFaqScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
         ) {
-            Text("Questions fréquentes", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+            Text("Questions fréquentes", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.height(12.dp))
 
             EcoCard {
                 // FAQ Item 1
                 Column(modifier = Modifier.fillMaxWidth().clickable { expandedFaqIndex = if (expandedFaqIndex == 0) -1 else 0 }.padding(vertical = 8.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                        Text("Mes données ne se mettent pas à jour", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Icon(if (expandedFaqIndex == 0) Icons.Default.ExpandLess else Icons.Default.ExpandMore, contentDescription = null, tint = EcoTextMuted)
+                        Text("Mes données ne se mettent pas à jour", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Icon(if (expandedFaqIndex == 0) Icons.Default.ExpandLess else Icons.Default.ExpandMore, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     if (expandedFaqIndex == 0) {
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text("Vérifiez votre connexion Internet, puis ouvrez Mon compteur et choisissez Synchroniser. Consultez l'heure de la dernière mise à jour.", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Vérifiez votre connexion Internet, puis ouvrez Mon compteur et choisissez Synchroniser. Consultez l'heure de la dernière mise à jour.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 // FAQ Item 2
                 Column(modifier = Modifier.fillMaxWidth().clickable { expandedFaqIndex = if (expandedFaqIndex == 1) -1 else 1 }.padding(vertical = 8.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                        Text("Où trouver mon numéro de compteur ?", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Icon(if (expandedFaqIndex == 1) Icons.Default.ExpandLess else Icons.Default.ExpandMore, contentDescription = null, tint = EcoTextMuted)
+                        Text("Où trouver mon numéro de compteur ?", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Icon(if (expandedFaqIndex == 1) Icons.Default.ExpandLess else Icons.Default.ExpandMore, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     if (expandedFaqIndex == 1) {
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text("Le numéro se situe sur la face avant du compteur électrique Linky ou électronique, près du code-barres.", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Le numéro se situe sur la face avant du compteur électrique Linky ou électronique, près du code-barres.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 // FAQ Item 3
                 Column(modifier = Modifier.fillMaxWidth().clickable { expandedFaqIndex = if (expandedFaqIndex == 2) -1 else 2 }.padding(vertical = 8.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                        Text("Pourquoi le coût est-il estimé ?", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Icon(if (expandedFaqIndex == 2) Icons.Default.ExpandLess else Icons.Default.ExpandMore, contentDescription = null, tint = EcoTextMuted)
+                        Text("Pourquoi le coût est-il estimé ?", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Icon(if (expandedFaqIndex == 2) Icons.Default.ExpandLess else Icons.Default.ExpandMore, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     if (expandedFaqIndex == 2) {
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text("Le calcul repose sur les données kwh relevées et votre tarif souscrit, hors taxes locales et abonnement annuel.", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Le calcul repose sur les données kwh relevées et votre tarif souscrit, hors taxes locales et abonnement annuel.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text("Nous contacter", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
-            Text("Décrivez le problème rencontré. La réponse sera envoyée à jean.dupont@email.fr.", fontSize = 12.sp, color = EcoTextSecondary, modifier = Modifier.padding(bottom = 12.dp))
+            Text("Nous contacter", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Text("Décrivez le problème rencontré. La réponse sera envoyée à l'adresse e-mail de votre compte.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(bottom = 12.dp))
 
             EcoCard {
-                Text("Objet", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Objet", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = subject,
                     onValueChange = { subject = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text("Votre message", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Votre message", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = messageText,
                     onValueChange = { messageText = it },
                     modifier = Modifier.fillMaxWidth().height(120.dp),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("N'indiquez jamais votre mot de passe ni votre code de vérification dans ce message.", fontSize = 11.sp, color = EcoTextMuted)
+                Text("N'indiquez jamais votre mot de passe ni votre code de vérification dans ce message.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -154,9 +155,9 @@ fun SupportFaqScreen(
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
                 ) {
-                    Icon(Icons.Default.Send, contentDescription = null, tint = EcoSurfaceWhite)
+                    Icon(Icons.Default.Send, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary)
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text("Envoyer ma demande", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                    Text("Envoyer ma demande", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
                 }
 
                 if (isSent) {
@@ -165,7 +166,7 @@ fun SupportFaqScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(10.dp))
-                            .background(EcoGreenLight)
+                            .background(MaterialTheme.colorScheme.primaryContainer)
                             .padding(10.dp)
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {

@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ecoconso.ui.components.EcoBottomNavBar
 import com.example.ecoconso.ui.components.EcoCard
+import com.example.ecoconso.ui.components.EcoEmptyState
 import com.example.ecoconso.ui.components.EcoTopAppBar
 import com.example.ecoconso.ui.theme.EcoBackgroundLight
 import com.example.ecoconso.ui.theme.EcoGreenLight
@@ -56,36 +58,7 @@ fun EcoTipsScreen(
     onNavigate: (String) -> Unit,
     onNavigateBack: () -> Unit
 ) {
-    val tipsList = listOf(
-        TipItemData(
-            title = "Coupez les veilles inutiles",
-            category = "Appareils du quotidien",
-            description = "Éteignez télévision, console et chargeurs inutilisés avec une multiprise à interrupteur. Gardez branchés les équipements qui doivent fonctionner en continu.",
-            icon = Icons.Default.Power,
-            iconColor = EcoGreenPrimary
-        ),
-        TipItemData(
-            title = "Lavez avec une charge complète",
-            category = "Électroménager · 45 % de la répartition",
-            description = "Attendez de remplir le lave-linge sans le surcharger. Choisissez le programme éco lorsque le linge le permet et évitez le prélavage inutile.",
-            icon = Icons.Default.Kitchen,
-            iconColor = EcoSkyBlue
-        ),
-        TipItemData(
-            title = "Ajustez le chauffage",
-            category = "Chauffage · 30 % de la répartition",
-            description = "Réglez la température selon l'occupation des pièces. Fermez les fenêtres pendant le chauffage et dégagez les radiateurs.",
-            icon = Icons.Default.Thermostat,
-            iconColor = EcoGreenPrimary
-        ),
-        TipItemData(
-            title = "Profitez de la lumière naturelle",
-            category = "Éclairage · 15 % de la répartition",
-            description = "Ouvrez les rideaux en journée et éteignez les lampes en quittant une pièce. Remplacez progressivement les ampoules usées par des LED adaptées.",
-            icon = Icons.Default.Lightbulb,
-            iconColor = EcoSkyBlue
-        )
-    )
+    val tipsList = emptyList<TipItemData>()
 
     Scaffold(
         topBar = { EcoTopAppBar(title = "Conseils économies", onBackClick = onNavigateBack) },
@@ -94,13 +67,16 @@ fun EcoTipsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EcoBackgroundLight)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
         ) {
-            Text("Des gestes à choisir selon vos usages, sans changer tout votre quotidien.", fontSize = 14.sp, color = EcoTextSecondary, modifier = Modifier.padding(bottom = 16.dp))
+            Text("Des gestes à choisir selon vos usages, sans changer tout votre quotidien.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(bottom = 16.dp))
 
+            if (tipsList.isEmpty()) {
+                EcoEmptyState("Aucun conseil disponible.")
+            }
             tipsList.forEach { tip ->
                 EcoCard {
                     Row(verticalAlignment = Alignment.Top) {
@@ -117,10 +93,10 @@ fun EcoTipsScreen(
                         Spacer(modifier = Modifier.width(12.dp))
 
                         Column {
-                            Text(tip.title, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                            Text(tip.title, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             Text(tip.category, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = tip.iconColor)
                             Spacer(modifier = Modifier.height(6.dp))
-                            Text(tip.description, fontSize = 13.sp, color = EcoTextSecondary)
+                            Text(tip.description, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
@@ -128,7 +104,9 @@ fun EcoTipsScreen(
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Les effets varient selon vos équipements et vos habitudes.", fontSize = 12.sp, color = EcoTextMuted, modifier = Modifier.align(Alignment.CenterHorizontally))
+            if (tipsList.isNotEmpty()) {
+                Text("Les effets varient selon vos équipements et vos habitudes.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.align(Alignment.CenterHorizontally))
+            }
         }
     }
 }

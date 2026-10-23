@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.auth
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -58,7 +59,7 @@ fun RegisterScreen(
 ) {
     var fullName by remember { mutableStateOf("Jean Dupont") }
     var phone by remember { mutableStateOf("06 12 34 56 78") }
-    var email by remember { mutableStateOf("jean.dupont@email.fr") }
+    var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("••••••••••") }
     var confirmPassword by remember { mutableStateOf("••••••••") }
     var acceptTerms by remember { mutableStateOf(true) }
@@ -66,7 +67,7 @@ fun RegisterScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "", onBackClick = onNavigateBack)
 
@@ -80,13 +81,13 @@ fun RegisterScreen(
                 text = "Créez votre compte",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
                 text = "Rejoignez E-Consommation et suivez votre consommation électrique.",
                 fontSize = 14.sp,
-                color = EcoTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 4.dp, bottom = 20.dp)
             )
 
@@ -94,76 +95,76 @@ fun RegisterScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(20.dp))
-                    .background(EcoSurfaceWhite)
+                    .background(MaterialTheme.colorScheme.onPrimary)
                     .padding(20.dp)
             ) {
                 // Nom complet
-                Text("Nom complet", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Nom complet", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = fullName,
                     onValueChange = { fullName = it },
-                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Téléphone
-                Text("Téléphone", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Téléphone", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = phone,
                     onValueChange = { phone = it },
-                    leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // E-mail
-                Text("E-mail", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("E-mail", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
-                    leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Mot de passe
-                Text("Mot de passe", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Mot de passe", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = password,
                     onValueChange = { password = it },
-                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
-                Text("8 caractères minimum, dont un chiffre.", fontSize = 11.sp, color = EcoTextMuted, modifier = Modifier.padding(top = 2.dp))
+                Text("8 caractères minimum, dont un chiffre.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 2.dp))
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Confirmer mot de passe
-                Text("Confirmer le mot de passe", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Confirmer le mot de passe", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
-                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     visualTransformation = PasswordVisualTransformation(),
                     isError = true,
                     modifier = Modifier.fillMaxWidth(),
@@ -183,7 +184,7 @@ fun RegisterScreen(
                     Text(
                         text = "J'accepte les conditions d'utilisation et la politique de confidentialité.",
                         fontSize = 12.sp,
-                        color = EcoTextSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
@@ -195,7 +196,7 @@ fun RegisterScreen(
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
                 ) {
-                    Text("Créer mon compte", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                    Text("Créer mon compte", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -204,7 +205,7 @@ fun RegisterScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    Text("Déjà un compte ? ", fontSize = 14.sp, color = EcoTextSecondary)
+                    Text("Déjà un compte ? ", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Text(
                         text = "Se connecter",
                         fontSize = 14.sp,

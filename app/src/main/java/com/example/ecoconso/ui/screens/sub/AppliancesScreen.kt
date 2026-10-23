@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,6 +40,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ecoconso.ui.components.EcoBottomNavBar
 import com.example.ecoconso.ui.components.EcoCard
 import com.example.ecoconso.ui.components.EcoCategoryProgressItem
+import com.example.ecoconso.ui.components.EcoEmptyState
 import com.example.ecoconso.ui.components.EcoTopAppBar
 import com.example.ecoconso.ui.theme.EcoBackgroundLight
 import com.example.ecoconso.ui.theme.EcoBorderColor
@@ -65,12 +67,7 @@ fun AppliancesScreen(
     onNavigate: (String) -> Unit,
     onNavigateBack: () -> Unit
 ) {
-    val categories = listOf(
-        ApplianceCategory("Électroménager", "Réfrigérateur, lave-linge, four", 0, Icons.Default.Kitchen, EcoGreenPrimary),
-        ApplianceCategory("Chauffage", "Radiateurs du domicile", 0, Icons.Default.Thermostat, EcoSkyBlue),
-        ApplianceCategory("Éclairage", "Ampoules et luminaires", 0, Icons.Default.Lightbulb, EcoGreenPrimary.copy(alpha = 0.8f)),
-        ApplianceCategory("Autres", "Télévision, box et petits appareils", 0, Icons.Default.Tv, EcoTextMuted)
-    )
+    val categories = emptyList<ApplianceCategory>()
 
     Scaffold(
         topBar = { EcoTopAppBar(title = "Mes appareils", onBackClick = onNavigateBack) },
@@ -79,7 +76,7 @@ fun AppliancesScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EcoBackgroundLight)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
@@ -89,7 +86,7 @@ fun AppliancesScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("27 septembre 2025", fontSize = 14.sp, color = EcoTextSecondary)
+                Text("Données du backend", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text("Modifier", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
             }
 
@@ -97,19 +94,16 @@ fun AppliancesScreen(
 
             // Distribution Summary
             EcoCard {
-                Text("Répartition estimée", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Répartition estimée", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                EcoCategoryProgressItem("Électroménager", 0, EcoGreenPrimary)
-                EcoCategoryProgressItem("Chauffage", 0, EcoSkyBlue)
-                EcoCategoryProgressItem("Éclairage", 0, EcoGreenPrimary.copy(alpha = 0.8f))
-                EcoCategoryProgressItem("Autres", 0, EcoTextMuted)
+                EcoEmptyState("Aucun appareil enregistré.")
 
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = "Estimation par catégorie, et non une mesure individuelle de chaque appareil.",
                     fontSize = 11.sp,
-                    color = EcoTextMuted
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
@@ -117,6 +111,9 @@ fun AppliancesScreen(
 
             // Appliance Category Items List
             EcoCard {
+                if (categories.isEmpty()) {
+                    EcoEmptyState("Les appareils seront affichés après synchronisation.")
+                }
                 categories.forEachIndexed { index, cat ->
                     Row(
                         modifier = Modifier
@@ -137,14 +134,14 @@ fun AppliancesScreen(
                             }
                             Spacer(modifier = Modifier.width(12.dp))
                             Column {
-                                Text(cat.name, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
-                                Text(cat.description, fontSize = 12.sp, color = EcoTextSecondary)
+                                Text(cat.name, fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+                                Text(cat.description, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                         }
-                        Text("${cat.percentage} %", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text("${cat.percentage} %", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                     }
                     if (index < categories.size - 1) {
-                        HorizontalDivider(color = EcoBorderColor)
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                     }
                 }
             }
@@ -157,16 +154,16 @@ fun AppliancesScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
             ) {
-                Icon(Icons.Default.Add, contentDescription = null, tint = EcoSurfaceWhite)
+                Icon(Icons.Default.Add, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Ajouter un appareil", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                Text("Ajouter un appareil", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
             }
 
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = "Complétez vos équipements pour affiner votre suivi.",
                 fontSize = 12.sp,
-                color = EcoTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         }

@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -62,7 +63,7 @@ fun ThresholdsBudgetScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Seuils et budget", onBackClick = onNavigateBack)
 
@@ -75,20 +76,20 @@ fun ThresholdsBudgetScreen(
             Text(
                 "Définissez vos repères et soyez averti lorsque votre consommation les dépasse.",
                 fontSize = 14.sp,
-                color = EcoTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
             // Daily Threshold Card
             EcoCard {
-                Text("Seuil quotidien", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Seuil quotidien", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = dailyThreshold,
                     onValueChange = { dailyThreshold = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -99,13 +100,13 @@ fun ThresholdsBudgetScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Alerte de dépassement", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Dès que le seuil quotidien est dépassé", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Alerte de dépassement", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Dès que le seuil quotidien est dépassé", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Switch(
                         checked = dailyAlertEnabled,
                         onCheckedChange = { dailyAlertEnabled = it },
-                        colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary)
+                        colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary)
                     )
                 }
             }
@@ -114,14 +115,14 @@ fun ThresholdsBudgetScreen(
 
             // Monthly Budget Card
             EcoCard {
-                Text("Budget mensuel", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Budget mensuel", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = monthlyBudget,
                     onValueChange = { monthlyBudget = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -132,28 +133,28 @@ fun ThresholdsBudgetScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Alerte de budget", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("À partir de 90 % du budget estimé", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Alerte de budget", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("À partir de 90 % du budget estimé", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Switch(
                         checked = budgetAlertEnabled,
                         onCheckedChange = { budgetAlertEnabled = it },
-                        colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary)
+                        colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary)
                     )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Text("Votre repère de septembre", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Votre repère de septembre", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("50 000 FCFA estimés", fontSize = 13.sp, color = EcoTextSecondary)
+                    Text("50 000 FCFA estimés", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Text("91 %", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoRedError)
                 }
 
@@ -163,11 +164,11 @@ fun ThresholdsBudgetScreen(
                     progress = { 0.91f },
                     modifier = Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(4.dp)),
                     color = EcoRedError,
-                    trackColor = EcoBorderColor
+                    trackColor = MaterialTheme.colorScheme.outline
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
-                Text("Il reste 5 000 FCFA avant le budget défini.", fontSize = 12.sp, color = EcoTextSecondary)
+                Text("Il reste 5 000 FCFA avant le budget défini.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -175,7 +176,7 @@ fun ThresholdsBudgetScreen(
             Text(
                 "Les coûts sont des estimations selon votre tarif. Ils ne remplacent pas votre facture. Les alertes ne coupent pas l'électricité.",
                 fontSize = 12.sp,
-                color = EcoTextMuted
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -186,7 +187,7 @@ fun ThresholdsBudgetScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
             ) {
-                Text("Enregistrer mes seuils", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                Text("Enregistrer mes seuils", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
             }
 
             if (isSaved) {
@@ -195,7 +196,7 @@ fun ThresholdsBudgetScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(10.dp))
-                        .background(EcoGreenLight)
+                        .background(MaterialTheme.colorScheme.primaryContainer)
                         .padding(10.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -203,7 +204,7 @@ fun ThresholdsBudgetScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text("Seuils enregistrés", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
-                            Text("Vos alertes de consommation et de budget sont actives.", fontSize = 12.sp, color = EcoTextSecondary)
+                            Text("Vos alertes de consommation et de budget sont actives.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }

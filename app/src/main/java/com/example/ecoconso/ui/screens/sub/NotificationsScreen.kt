@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,15 +38,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ecoconso.ui.components.EcoBottomNavBar
 import com.example.ecoconso.ui.components.EcoCard
+import com.example.ecoconso.ui.components.EcoEmptyState
 import com.example.ecoconso.ui.components.EcoTopAppBar
-import com.example.ecoconso.ui.theme.EcoBackgroundLight
-import com.example.ecoconso.ui.theme.EcoBorderColor
 import com.example.ecoconso.ui.theme.EcoGreenPrimary
 import com.example.ecoconso.ui.theme.EcoRedError
 import com.example.ecoconso.ui.theme.EcoSkyBlue
-import com.example.ecoconso.ui.theme.EcoTextMuted
-import com.example.ecoconso.ui.theme.EcoTextPrimary
-import com.example.ecoconso.ui.theme.EcoTextSecondary
 
 data class NotificationItemData(
     val title: String,
@@ -63,54 +60,17 @@ fun NotificationsScreen(
     onNavigateBack: () -> Unit,
     onNavigateToAlertDetail: () -> Unit
 ) {
-    val notificationList = listOf(
-        NotificationItemData(
-            title = "Consommation maîtrisée",
-            description = "Votre consommation a diminué de 8 % par rapport à hier. Continuez ainsi !",
-            time = "Il y a 10 min",
-            icon = Icons.Default.CheckCircle,
-            iconColor = EcoGreenPrimary,
-            isUnread = true
-        ),
-        NotificationItemData(
-            title = "Alerte de surconsommation",
-            description = "Vous avez dépassé votre seuil quotidien de 15 kWh. Vérifiez vos appareils.",
-            time = "Il y a 1 h",
-            icon = Icons.Default.Warning,
-            iconColor = EcoRedError,
-            isUnread = true
-        ),
-        NotificationItemData(
-            title = "Maintenance du réseau",
-            description = "Une intervention est prévue le 30 septembre, de 9 h à 11 h, dans votre secteur.",
-            time = "Hier, 16:30",
-            icon = Icons.Default.Engineering,
-            iconColor = EcoSkyBlue
-        ),
-        NotificationItemData(
-            title = "Conseil économie",
-            description = "Débranchez les appareils en veille : un petit geste pour réduire votre facture.",
-            time = "Hier, 09:00",
-            icon = Icons.Default.Lightbulb,
-            iconColor = EcoGreenPrimary
-        ),
-        NotificationItemData(
-            title = "Rapport mensuel disponible",
-            description = "Votre bilan de septembre est prêt. Retrouvez-le dans votre historique.",
-            time = "26 sept., 08:00",
-            icon = Icons.Default.Assessment,
-            iconColor = EcoSkyBlue
-        )
-    )
+    val notificationList = emptyList<NotificationItemData>()
 
     Scaffold(
         topBar = { EcoTopAppBar(title = "Notifications", onBackClick = onNavigateBack) },
-        bottomBar = { EcoBottomNavBar(currentRoute = currentRoute, onNavigate = onNavigate) }
+        bottomBar = { EcoBottomNavBar(currentRoute = currentRoute, onNavigate = onNavigate) },
+        containerColor = MaterialTheme.colorScheme.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EcoBackgroundLight)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
@@ -120,13 +80,15 @@ fun NotificationsScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("2 nouvelles notifications", fontSize = 14.sp, color = EcoTextSecondary, fontWeight = FontWeight.Medium)
-                Text("Tout marquer comme lu", fontSize = 13.sp, color = EcoGreenPrimary, fontWeight = FontWeight.Bold, modifier = Modifier.clickable { })
+                Text("Notifications", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             EcoCard {
+                if (notificationList.isEmpty()) {
+                    EcoEmptyState("Aucune notification disponible.")
+                }
                 notificationList.forEachIndexed { index, notif ->
                     Row(
                         modifier = Modifier
@@ -157,7 +119,7 @@ fun NotificationsScreen(
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(notif.title, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                                Text(notif.title, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                 if (notif.isUnread) {
                                     Box(
                                         modifier = Modifier
@@ -168,13 +130,13 @@ fun NotificationsScreen(
                                 }
                             }
                             Spacer(modifier = Modifier.height(2.dp))
-                            Text(notif.description, fontSize = 12.sp, color = EcoTextSecondary)
+                            Text(notif.description, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             Spacer(modifier = Modifier.height(4.dp))
-                            Text(notif.time, fontSize = 11.sp, color = EcoTextMuted)
+                            Text(notif.time, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                     if (index < notificationList.size - 1) {
-                        HorizontalDivider(color = EcoBorderColor)
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                     }
                 }
             }

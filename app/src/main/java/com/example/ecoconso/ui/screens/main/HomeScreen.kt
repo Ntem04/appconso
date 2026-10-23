@@ -40,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,6 +73,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
 
     Scaffold(
         bottomBar = { EcoBottomNavBar(currentRoute = currentRoute, onNavigate = onNavigate) }
@@ -147,7 +149,9 @@ fun HomeScreen(
                                 val systemInDark = androidx.compose.foundation.isSystemInDarkTheme()
                                 val isDark = com.example.ecoconso.ui.theme.ThemeManager.isDarkModeManual ?: systemInDark
 
-                                IconButton(onClick = { com.example.ecoconso.ui.theme.ThemeManager.toggleDarkMode(!isDark) }) {
+                                IconButton(onClick = {
+                                    com.example.ecoconso.ui.theme.ThemeManager.toggleDarkMode(context, !isDark)
+                                }) {
                                     Icon(
                                         imageVector = if (isDark) Icons.Outlined.LightMode else Icons.Outlined.DarkMode,
                                         contentDescription = "Mode Sombre",
@@ -175,7 +179,7 @@ fun HomeScreen(
                         )
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
-                            text = "Bonjour, Ntem dilanet",
+                            text = "Bonjour",
                             fontSize = 22.sp,
                             fontWeight = FontWeight.ExtraBold,
                             color = MaterialTheme.colorScheme.onBackground
@@ -195,7 +199,7 @@ fun HomeScreen(
                                     Icon(
                                         imageVector = Icons.Outlined.ElectricBolt,
                                         contentDescription = null,
-                                        tint = EcoSurfaceWhite,
+                                        tint = MaterialTheme.colorScheme.onPrimary,
                                         modifier = Modifier.size(18.dp)
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
@@ -203,7 +207,7 @@ fun HomeScreen(
                                         text = "Consommation du jour",
                                         fontSize = 13.sp,
                                         fontWeight = FontWeight.Medium,
-                                        color = EcoSurfaceWhite.copy(alpha = 0.9f)
+                                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f)
                                     )
                                 }
 
@@ -220,14 +224,14 @@ fun HomeScreen(
                                                 text = String.format(Locale.FRANCE, "%.1f", data.totalKwh),
                                                 fontSize = 36.sp,
                                                 fontWeight = FontWeight.Bold,
-                                                color = EcoSurfaceWhite
+                                                color = MaterialTheme.colorScheme.onPrimary
                                             )
                                             Spacer(modifier = Modifier.width(6.dp))
                                             Text(
                                                 text = "kWh",
                                                 fontSize = 18.sp,
                                                 fontWeight = FontWeight.Bold,
-                                                color = EcoSurfaceWhite,
+                                                color = MaterialTheme.colorScheme.onPrimary,
                                                 modifier = Modifier.padding(bottom = 4.dp)
                                             )
                                         }
@@ -235,14 +239,14 @@ fun HomeScreen(
                                         Text(
                                             text = "${data.percentVsYesterday} % par rapport à hier",
                                             fontSize = 12.sp,
-                                            color = EcoSurfaceWhite.copy(alpha = 0.85f)
+                                            color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f)
                                         )
                                     }
 
                                     // White Line Sparkline Chart
                                     EcoLineSparkline(
-                                        dataPoints = listOf(30f, 60f, 45f, 75f, 55f, 85f, 65f),
-                                        lineColor = EcoSurfaceWhite,
+                                        dataPoints = data.weeklyData.map { it.kwh },
+                                        lineColor = MaterialTheme.colorScheme.onPrimary,
                                         modifier = Modifier
                                             .width(130.dp)
                                             .height(60.dp)
@@ -381,7 +385,7 @@ fun HomeScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(16.dp))
-                                .background(EcoGreenLight)
+                                .background(MaterialTheme.colorScheme.primaryContainer)
                                 .padding(16.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -403,7 +407,7 @@ fun HomeScreen(
                                     Text(
                                         text = "Éteignez vos appareils en veille pour réduire votre consommation.",
                                         fontSize = 12.sp,
-                                        color = EcoTextSecondary
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
                                 }
                             }

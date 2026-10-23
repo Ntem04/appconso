@@ -98,8 +98,16 @@ fun EcoStatCard(
                 if (badgeText != null) {
                     Spacer(modifier = Modifier.height(6.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        val badgeBg = if (isPositiveChange) EcoGreenLight else Color(0xFFFFEBEE)
-                        val badgeColor = if (isPositiveChange) EcoGreenPrimary else EcoRedError
+                        val badgeBg = if (isPositiveChange) {
+                            MaterialTheme.colorScheme.primaryContainer
+                        } else {
+                            MaterialTheme.colorScheme.errorContainer
+                        }
+                        val badgeColor = if (isPositiveChange) {
+                            EcoGreenPrimary
+                        } else {
+                            MaterialTheme.colorScheme.onErrorContainer
+                        }
                         val badgeIcon = if (isPositiveChange) Icons.Filled.ArrowDownward else Icons.Filled.ArrowUpward
 
                         Surface(
@@ -171,13 +179,13 @@ fun EcoCategoryProgressItem(
                 text = title,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
             Text(
                 text = "$percentage %",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
         Spacer(modifier = Modifier.height(6.dp))
@@ -188,7 +196,7 @@ fun EcoCategoryProgressItem(
                 .height(8.dp)
                 .clip(RoundedCornerShape(4.dp)),
             color = color,
-            trackColor = EcoBorderColor
+            trackColor = MaterialTheme.colorScheme.outline
         )
     }
 }

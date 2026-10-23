@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -56,7 +57,7 @@ fun MeterDetailsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Mon compteur", onBackClick = onNavigateBack)
 
@@ -73,7 +74,7 @@ fun MeterDetailsScreen(
                         modifier = Modifier
                             .size(50.dp)
                             .clip(CircleShape)
-                            .background(EcoGreenLight),
+                            .background(MaterialTheme.colorScheme.primaryContainer),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(Icons.Default.ElectricMeter, contentDescription = null, tint = EcoGreenPrimary, modifier = Modifier.size(28.dp))
@@ -83,16 +84,16 @@ fun MeterDetailsScreen(
 
                     Column {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("Compteur non synchronisé", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                            Text("Compteur non synchronisé", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             Spacer(modifier = Modifier.width(6.dp))
                         }
                         Text("N° ---", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoGreenPrimary)
-                        Text("En attente de données", fontSize = 12.sp, color = EcoTextMuted)
+                        Text("En attente de données", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
@@ -100,12 +101,12 @@ fun MeterDetailsScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column {
-                        Text("Puissance actuelle", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Puissance actuelle", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Text("0 kW", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                     }
                     Column(horizontalAlignment = Alignment.End) {
-                        Text("Puissance souscrite", fontSize = 12.sp, color = EcoTextSecondary)
-                        Text("0 kVA", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text("Puissance souscrite", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("0 kVA", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                     }
                 }
             }
@@ -123,21 +124,21 @@ fun MeterDetailsScreen(
                         Icon(Icons.Default.Home, contentDescription = null, tint = EcoSkyBlue)
                         Spacer(modifier = Modifier.width(10.dp))
                         Column {
-                            Text("Mon domicile", fontSize = 12.sp, color = EcoTextSecondary)
-                            Text("Résidence principale", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                            Text("Mon domicile", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text("Résidence principale", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         }
                     }
                     Text("Modifier", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text("Titulaire : ---", fontSize = 13.sp, color = EcoTextPrimary, fontWeight = FontWeight.Medium)
+                Text("Titulaire : ---", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Medium)
                 Spacer(modifier = Modifier.height(4.dp))
-                Text("Référence d'abonnement", fontSize = 12.sp, color = EcoTextSecondary)
-                Text("---", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Référence d'abonnement", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text("---", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -149,9 +150,9 @@ fun MeterDetailsScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
             ) {
-                Icon(Icons.Default.Refresh, contentDescription = null, tint = EcoSurfaceWhite)
+                Icon(Icons.Default.Refresh, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Synchroniser le compteur", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                Text("Synchroniser le compteur", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
             }
 
             Spacer(modifier = Modifier.height(10.dp))

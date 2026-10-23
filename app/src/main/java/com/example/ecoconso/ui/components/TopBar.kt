@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import com.example.ecoconso.ui.theme.ThemeManager
 
@@ -27,6 +28,7 @@ fun EcoTopAppBar(
 ) {
     val systemInDark = isSystemInDarkTheme()
     val isDark = ThemeManager.isDarkModeManual ?: systemInDark
+    val context = LocalContext.current
 
     TopAppBar(
         title = {
@@ -49,7 +51,12 @@ fun EcoTopAppBar(
         },
         actions = {
             if (showDarkModeToggle) {
-                IconButton(onClick = { ThemeManager.toggleDarkMode(!isDark) }) {
+                IconButton(onClick = {
+                    ThemeManager.toggleDarkMode(
+                        context,
+                        !isDark
+                    )
+                }) {
                     Icon(
                         imageVector = if (isDark) Icons.Outlined.LightMode else Icons.Outlined.DarkMode,
                         contentDescription = "Basculer thème",

@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -59,7 +60,7 @@ fun ExportDataScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Exporter mes données", onBackClick = onNavigateBack)
 
@@ -69,22 +70,22 @@ fun ExportDataScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
         ) {
-            Text("Conservez votre suivi ou analysez vos relevés dans un tableur.", fontSize = 14.sp, color = EcoTextSecondary, modifier = Modifier.padding(bottom = 16.dp))
+            Text("Conservez votre suivi ou analysez vos relevés dans un tableur.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(bottom = 16.dp))
 
             EcoCard {
-                Text("Période à exporter", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Période à exporter", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = period,
                     onValueChange = { period = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Text("Choisir un format", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Choisir un format", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row(
@@ -97,14 +98,14 @@ fun ExportDataScreen(
                         modifier = Modifier
                             .weight(1f)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(if (isPdf) EcoGreenLight else EcoSurfaceWhite)
-                            .border(1.5.dp, if (isPdf) EcoGreenPrimary else EcoBorderColor, RoundedCornerShape(12.dp))
+                            .background(if (isPdf) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.onPrimary)
+                            .border(1.5.dp, if (isPdf) EcoGreenPrimary else MaterialTheme.colorScheme.outline, RoundedCornerShape(12.dp))
                             .clickable { selectedFormat = "PDF" }
                             .padding(12.dp)
                     ) {
                         Column {
-                            Text("PDF", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = if (isPdf) EcoGreenPrimary else EcoTextPrimary)
-                            Text("Bilan et graphiques", fontSize = 11.sp, color = EcoTextSecondary)
+                            Text("PDF", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = if (isPdf) EcoGreenPrimary else MaterialTheme.colorScheme.onSurface)
+                            Text("Bilan et graphiques", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
 
@@ -114,14 +115,14 @@ fun ExportDataScreen(
                         modifier = Modifier
                             .weight(1f)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(if (isCsv) EcoGreenLight else EcoSurfaceWhite)
-                            .border(1.5.dp, if (isCsv) EcoGreenPrimary else EcoBorderColor, RoundedCornerShape(12.dp))
+                            .background(if (isCsv) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.onPrimary)
+                            .border(1.5.dp, if (isCsv) EcoGreenPrimary else MaterialTheme.colorScheme.outline, RoundedCornerShape(12.dp))
                             .clickable { selectedFormat = "CSV" }
                             .padding(12.dp)
                     ) {
                         Column {
-                            Text("CSV", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = if (isCsv) EcoGreenPrimary else EcoTextPrimary)
-                            Text("Relevés pour tableur", fontSize = 11.sp, color = EcoTextSecondary)
+                            Text("CSV", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = if (isCsv) EcoGreenPrimary else MaterialTheme.colorScheme.onSurface)
+                            Text("Relevés pour tableur", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
@@ -131,29 +132,29 @@ fun ExportDataScreen(
 
             // Summary Card
             EcoCard {
-                Text("Résumé de l'export", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Résumé de l'export", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("Compteur", fontSize = 13.sp, color = EcoTextSecondary)
-                    Text("N° 01234567890123", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                    Text("Compteur", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("Aucun compteur enregistré", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 }
                 Spacer(modifier = Modifier.height(6.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("Consommation", fontSize = 13.sp, color = EcoTextSecondary)
+                    Text("Consommation", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Text("324,6 kWh", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                 }
                 Spacer(modifier = Modifier.height(6.dp))
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text("Coût estimé", fontSize = 13.sp, color = EcoTextSecondary)
-                    Text("50 000 FCFA", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                    Text("Coût estimé", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text("50 000 FCFA", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text("Le PDF inclut le bilan, la comparaison mensuelle et la répartition estimée. Les coûts ne valent pas facture.", fontSize = 11.sp, color = EcoTextMuted)
+                Text("Le PDF inclut le bilan, la comparaison mensuelle et la répartition estimée. Les coûts ne valent pas facture.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -164,9 +165,9 @@ fun ExportDataScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
             ) {
-                Icon(Icons.Default.Download, contentDescription = null, tint = EcoSurfaceWhite)
+                Icon(Icons.Default.Download, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Télécharger le $selectedFormat", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                Text("Télécharger le $selectedFormat", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
             }
 
             if (isDownloaded) {
@@ -175,7 +176,7 @@ fun ExportDataScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp))
-                        .background(EcoGreenLight)
+                        .background(MaterialTheme.colorScheme.primaryContainer)
                         .padding(12.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -183,8 +184,8 @@ fun ExportDataScreen(
                         Spacer(modifier = Modifier.width(10.dp))
                         Column {
                             Text("Téléchargement terminé", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
-                            Text("E-Consommation_2025-09.pdf a été enregistré sur votre appareil.", fontSize = 12.sp, color = EcoTextSecondary)
-                            Text("Ce fichier contient vos données de consommation. Partagez-le uniquement avec les personnes choisies.", fontSize = 11.sp, color = EcoTextMuted)
+                            Text("E-Consommation_2025-09.pdf a été enregistré sur votre appareil.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            Text("Ce fichier contient vos données de consommation. Partagez-le uniquement avec les personnes choisies.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }

@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -58,7 +59,7 @@ fun AboutPrivacyScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "À propos et confidentialité", onBackClick = onNavigateBack)
 
@@ -78,34 +79,34 @@ fun AboutPrivacyScreen(
                             .background(EcoGreenPrimary),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(Icons.Default.ElectricBolt, contentDescription = null, tint = EcoSurfaceWhite, modifier = Modifier.size(28.dp))
+                        Icon(Icons.Default.ElectricBolt, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary, modifier = Modifier.size(28.dp))
                     }
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
-                        Text("E-Consommation", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text("E-Consommation", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         Text("Version 1.0.0", fontSize = 13.sp, color = EcoGreenPrimary, fontWeight = FontWeight.Bold)
                     }
                 }
                 Spacer(modifier = Modifier.height(12.dp))
-                Text("Un outil pour suivre votre consommation électrique et mieux comprendre les usages de votre domicile.", fontSize = 13.sp, color = EcoTextSecondary)
+                Text("Un outil pour suivre votre consommation électrique et mieux comprendre les usages de votre domicile.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Data Terms Card
             EcoCard {
-                Text("Comprendre vos données", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Comprendre vos données", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Vos coordonnées servent à gérer votre compte. Le numéro de compteur et les relevés servent au suivi, aux graphiques et aux alertes choisies.", fontSize = 12.sp, color = EcoTextSecondary)
+                Text("Vos coordonnées servent à gérer votre compte. Le numéro de compteur et les relevés servent au suivi, aux graphiques et aux alertes choisies.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Les coûts et la répartition par appareil sont estimatifs. Ils ne remplacent ni une facture ni une mesure appareil par appareil.", fontSize = 12.sp, color = EcoTextMuted)
+                Text("Les coûts et la répartition par appareil sont estimatifs. Ils ne remplacent ni une facture ni une mesure appareil par appareil.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Consent Card
             EcoCard {
-                Text("Vos choix et votre consentement", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Vos choix et votre consentement", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Row(
@@ -114,24 +115,24 @@ fun AboutPrivacyScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Recevoir des conseils par e-mail", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Facultatif · modifiable à tout moment", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Recevoir des conseils par e-mail", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Facultatif · modifiable à tout moment", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Switch(checked = receiveTipsEmail, onCheckedChange = { receiveTipsEmail = it }, colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary))
+                    Switch(checked = receiveTipsEmail, onCheckedChange = { receiveTipsEmail = it }, colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary))
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Les préférences de notifications peuvent être modifiées sans fermer votre compte.", fontSize = 11.sp, color = EcoTextMuted)
+                Text("Les préférences de notifications peuvent être modifiées sans fermer votre compte.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Access & Rights Card
             EcoCard {
-                Text("Accès, correction et suppression", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Accès, correction et suppression", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Consultez et corrigez vos coordonnées dans le profil.", fontSize = 12.sp, color = EcoTextSecondary)
-                Text("Exportez vos relevés ou adressez une demande de suppression depuis Aide et contact.", fontSize = 12.sp, color = EcoTextSecondary)
+                Text("Consultez et corrigez vos coordonnées dans le profil.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text("Exportez vos relevés ou adressez une demande de suppression depuis Aide et contact.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
                 Spacer(modifier = Modifier.height(16.dp))
 

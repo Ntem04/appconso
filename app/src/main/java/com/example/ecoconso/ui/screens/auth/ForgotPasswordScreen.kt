@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.auth
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -54,12 +55,12 @@ fun ForgotPasswordScreen(
     onNavigateBack: () -> Unit,
     onSendCode: () -> Unit
 ) {
-    var input by remember { mutableStateOf("jean.dupont@email.fr") }
+    var input by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Récupérer mon compte", onBackClick = onNavigateBack)
 
@@ -73,7 +74,7 @@ fun ForgotPasswordScreen(
                 modifier = Modifier
                     .size(56.dp)
                     .clip(CircleShape)
-                    .background(EcoGreenLight),
+                    .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -90,13 +91,13 @@ fun ForgotPasswordScreen(
                 text = "Mot de passe oublié ?",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
                 text = "Indiquez le téléphone ou l'e-mail utilisé pour votre compte. Nous vous enverrons un code de vérification.",
                 fontSize = 14.sp,
-                color = EcoTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 6.dp, bottom = 20.dp)
             )
 
@@ -104,18 +105,18 @@ fun ForgotPasswordScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(20.dp))
-                    .background(EcoSurfaceWhite)
+                    .background(MaterialTheme.colorScheme.onPrimary)
                     .padding(20.dp)
             ) {
-                Text("Téléphone ou e-mail", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Téléphone ou e-mail", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(6.dp))
                 OutlinedTextField(
                     value = input,
                     onValueChange = { input = it },
-                    leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
                 Text("Le code sera envoyé à cette adresse e-mail.", fontSize = 12.sp, color = EcoGreenPrimary, modifier = Modifier.padding(top = 4.dp))
 
@@ -127,7 +128,7 @@ fun ForgotPasswordScreen(
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
                 ) {
-                    Text("Envoyer le code de vérification", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                    Text("Envoyer le code de vérification", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -136,7 +137,7 @@ fun ForgotPasswordScreen(
                     text = "Retour à la connexion",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = EcoTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
                         .clickable { onNavigateBack() }
@@ -147,7 +148,7 @@ fun ForgotPasswordScreen(
 
             // Explanation Section
             EcoCard {
-                Text("Comment ça marche ?", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Comment ça marche ?", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Row(verticalAlignment = Alignment.Top) {
@@ -162,8 +163,8 @@ fun ForgotPasswordScreen(
                     }
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
-                        Text("Recevez votre code", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Consultez votre boîte e-mail ou vos SMS.", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Recevez votre code", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Consultez votre boîte e-mail ou vos SMS.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
 
@@ -181,8 +182,8 @@ fun ForgotPasswordScreen(
                     }
                     Spacer(modifier = Modifier.width(12.dp))
                     Column {
-                        Text("Choisissez un nouveau mot de passe", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Après validation du code reçu.", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Choisissez un nouveau mot de passe", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Après validation du code reçu.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
@@ -191,7 +192,7 @@ fun ForgotPasswordScreen(
             Text(
                 text = "Si le message n'arrive pas, vérifiez vos courriers indésirables ou votre numéro de téléphone.",
                 fontSize = 12.sp,
-                color = EcoTextMuted
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }

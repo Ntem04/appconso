@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.auth
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -76,7 +77,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
     ) {
         // --- Dark Green Header Section ---
@@ -93,14 +94,14 @@ fun LoginScreen(
                     modifier = Modifier
                         .size(72.dp)
                         .clip(CircleShape)
-                        .border(2.dp, EcoGreenLight.copy(alpha = 0.5f), CircleShape)
+                        .border(2.dp, MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f), CircleShape)
                         .background(Color.Transparent),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.ElectricBolt,
                         contentDescription = null,
-                        tint = EcoGreenLight,
+                        tint = MaterialTheme.colorScheme.primaryContainer,
                         modifier = Modifier.size(36.dp)
                     )
                 }
@@ -111,7 +112,7 @@ fun LoginScreen(
                     text = "E-Consommation",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = EcoSurfaceWhite
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -119,7 +120,7 @@ fun LoginScreen(
                 Text(
                     text = "Suivez votre consommation électrique\net maîtrisez votre énergie au quotidien.",
                     fontSize = 14.sp,
-                    color = EcoSurfaceWhite.copy(alpha = 0.85f),
+                    color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f),
                     textAlign = TextAlign.Center,
                     lineHeight = 20.sp
                 )
@@ -136,7 +137,7 @@ fun LoginScreen(
                 text = "Se connecter",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.ExtraBold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -146,27 +147,27 @@ fun LoginScreen(
                 text = "Téléphone ou e-mail",
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = emailOrPhone,
                 onValueChange = { emailOrPhone = it },
-                placeholder = { Text("Votre téléphone ou adresse e-mail", color = EcoTextMuted) },
+                placeholder = { Text("Votre téléphone ou adresse e-mail", color = MaterialTheme.colorScheme.onSurfaceVariant) },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Outlined.Person,
                         contentDescription = null,
-                        tint = EcoTextSecondary
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = EcoGreenPrimary,
-                    unfocusedBorderColor = EcoBorderColor,
-                    focusedContainerColor = EcoSurfaceWhite,
-                    unfocusedContainerColor = EcoSurfaceWhite
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                    focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 singleLine = true
             )
@@ -178,18 +179,18 @@ fun LoginScreen(
                 text = "Mot de passe",
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                placeholder = { Text("Votre mot de passe", color = EcoTextMuted) },
+                placeholder = { Text("Votre mot de passe", color = MaterialTheme.colorScheme.onSurfaceVariant) },
                 leadingIcon = {
                     Icon(
                         imageVector = Icons.Outlined.Lock,
                         contentDescription = null,
-                        tint = EcoTextSecondary
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 },
                 trailingIcon = {
@@ -197,7 +198,7 @@ fun LoginScreen(
                         Icon(
                             imageVector = if (isPasswordVisible) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff,
                             contentDescription = null,
-                            tint = EcoTextSecondary
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 },
@@ -207,9 +208,9 @@ fun LoginScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = EcoGreenPrimary,
-                    unfocusedBorderColor = EcoBorderColor,
-                    focusedContainerColor = EcoSurfaceWhite,
-                    unfocusedContainerColor = EcoSurfaceWhite
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline,
+                    focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary
                 ),
                 singleLine = true
             )
@@ -228,13 +229,13 @@ fun LoginScreen(
                         onCheckedChange = { rememberMe = it },
                         colors = CheckboxDefaults.colors(
                             checkedColor = EcoGreenPrimary,
-                            uncheckedColor = EcoBorderColor
+                            uncheckedColor = MaterialTheme.colorScheme.outline
                         )
                     )
                     Text(
                         text = "Se souvenir de moi",
                         fontSize = 12.sp,
-                        color = EcoTextSecondary
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
@@ -262,7 +263,7 @@ fun LoginScreen(
                     text = "Se connecter",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = EcoSurfaceWhite
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
             }
 
@@ -277,7 +278,7 @@ fun LoginScreen(
                 Text(
                     text = "Pas encore de compte ? ",
                     fontSize = 13.sp,
-                    color = EcoTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
                     text = "S'inscrire",
@@ -295,7 +296,7 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
-                    .background(EcoGreenLight.copy(alpha = 0.6f))
+                    .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6f))
                     .padding(16.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -309,7 +310,7 @@ fun LoginScreen(
                     Text(
                         text = "Un service pensé pour vous\net pour notre planète.",
                         fontSize = 12.sp,
-                        color = EcoTextPrimary,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium,
                         lineHeight = 16.sp
                     )

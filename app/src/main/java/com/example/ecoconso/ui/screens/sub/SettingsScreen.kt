@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -55,9 +57,8 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit
 ) {
     val systemInDark = isSystemInDarkTheme()
-    var isDarkModeActive by remember {
-        mutableStateOf(ThemeManager.isDarkModeManual ?: systemInDark)
-    }
+    val context = LocalContext.current
+    val isDarkModeActive = ThemeManager.isDarkModeManual ?: systemInDark
     var limitAnimations by remember { mutableStateOf(false) }
     var backgroundSync by remember { mutableStateOf(true) }
 
@@ -68,12 +69,12 @@ fun SettingsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EcoBackgroundLight)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
         ) {
-            Text("Préférences de l'application", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+            Text("Préférences de l'application", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.height(12.dp))
 
             EcoCard {
@@ -84,19 +85,18 @@ fun SettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Mode Sombre", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text(if (isDarkModeActive) "Thème sombre activé" else "Thème clair activé", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Mode Sombre", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text(if (isDarkModeActive) "Thème sombre activé" else "Thème clair activé", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Switch(
                         checked = isDarkModeActive,
                         onCheckedChange = { enabled ->
-                            isDarkModeActive = enabled
-                            ThemeManager.toggleDarkMode(enabled)
+                            ThemeManager.toggleDarkMode(context, enabled)
                         },
-                        colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary)
+                        colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary)
                     )
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 // Langue
                 Row(
@@ -105,12 +105,12 @@ fun SettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
-                        Text("Langue", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Français", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Langue", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Français", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 // Notifications
                 Row(
@@ -119,12 +119,12 @@ fun SettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
-                        Text("Notifications", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Alertes, rapports et conseils", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Notifications", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Alertes, rapports et conseils", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 // Seuils et budget
                 Row(
@@ -133,12 +133,12 @@ fun SettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
-                        Text("Seuils et budget", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("15 kWh par jour · 55 000 FCFA par mois", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Seuils et budget", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("15 kWh par jour · 55 000 FCFA par mois", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 // Sobriété numérique
                 Row(
@@ -147,16 +147,16 @@ fun SettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Sobriété numérique", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Limiter les animations · Interface calme", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Sobriété numérique", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Limiter les animations · Interface calme", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Switch(
                         checked = limitAnimations,
                         onCheckedChange = { limitAnimations = it },
-                        colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary)
+                        colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary)
                     )
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 // Synchronisation en arrière-plan
                 Row(
@@ -165,23 +165,23 @@ fun SettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
-                        Text("Synchronisation en arrière-plan", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Actualiser sans ouvrir l'application", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Synchronisation en arrière-plan", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Actualiser sans ouvrir l'application", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Switch(
                         checked = backgroundSync,
                         onCheckedChange = { backgroundSync = it },
-                        colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary)
+                        colors = SwitchDefaults.colors(checkedThumbColor = MaterialTheme.colorScheme.onPrimary, checkedTrackColor = EcoGreenPrimary)
                     )
                 }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Les données se mettent à jour à l'ouverture de l'application ou lors d'une synchronisation manuelle.", fontSize = 12.sp, color = EcoTextMuted)
+            Text("Les données se mettent à jour à l'ouverture de l'application ou lors d'une synchronisation manuelle.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text("Compte et confidentialité", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+            Text("Compte et confidentialité", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             Spacer(modifier = Modifier.height(12.dp))
 
             EcoCard {
@@ -191,12 +191,12 @@ fun SettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
-                        Text("Exporter mes données", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Télécharger un PDF ou un CSV", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("Exporter mes données", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Télécharger un PDF ou un CSV", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 Row(
                     modifier = Modifier.fillMaxWidth().clickable { onNavigateToAbout() }.padding(vertical = 12.dp),
@@ -204,10 +204,10 @@ fun SettingsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
-                        Text("À propos et confidentialité", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                        Text("Données utilisées, consentement et droits", fontSize = 12.sp, color = EcoTextSecondary)
+                        Text("À propos et confidentialité", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Données utilisées, consentement et droits", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
-                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+                    Icon(Icons.Default.ChevronRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         }

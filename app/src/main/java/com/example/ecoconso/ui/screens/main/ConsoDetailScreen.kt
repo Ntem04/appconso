@@ -60,15 +60,10 @@ import com.example.ecoconso.ui.theme.EcoTextSecondary
 fun ConsoDetailScreen(
     currentRoute: String,
     onNavigate: (String) -> Unit,
-    totalKwh: Float = 12.4f,
-    percentVsYesterday: Float = -8f,
-    hourlyPoints: List<Float> = listOf(20f, 30f, 15f, 40f, 35f, 70f, 50f),
-    applianceBreakdown: List<Pair<String, Int>> = listOf(
-        "Électroménager" to 45,
-        "Chauffage" to 30,
-        "Éclairage" to 15,
-        "Autres" to 10
-    )
+    totalKwh: Float = 0f,
+    percentVsYesterday: Float = 0f,
+    hourlyPoints: List<Float> = emptyList(),
+    applianceBreakdown: List<Pair<String, Int>> = emptyList()
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val timeTabs = listOf("Jour", "Semaine", "Mois", "Année")
@@ -77,7 +72,7 @@ fun ConsoDetailScreen(
         EcoGreenPrimary,
         EcoGreenPrimary.copy(alpha = 0.6f),
         EcoGreenPrimary.copy(alpha = 0.4f),
-        EcoBorderColor
+        MaterialTheme.colorScheme.outline
     )
 
     val donutSegments = applianceBreakdown.mapIndexed { index, pair ->
@@ -94,7 +89,8 @@ fun ConsoDetailScreen(
                 currentRoute = currentRoute,
                 onNavigate = onNavigate
             )
-        }
+        },
+        containerColor = MaterialTheme.colorScheme.background
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -135,7 +131,7 @@ fun ConsoDetailScreen(
                                 text = title,
                                 fontSize = 13.sp,
                                 fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                                color = if (isSelected) EcoSurfaceWhite else MaterialTheme.colorScheme.onSurfaceVariant
+                                color = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                     }
@@ -165,7 +161,7 @@ fun ConsoDetailScreen(
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Samedi 27 septembre 2025",
+                        text = "Période sélectionnée",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onBackground
@@ -215,7 +211,7 @@ fun ConsoDetailScreen(
 
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = EcoGreenLight
+                        color = MaterialTheme.colorScheme.primaryContainer
                     ) {
                         Text(
                             text = "${percentVsYesterday.toInt()} % vs hier",
@@ -231,7 +227,7 @@ fun ConsoDetailScreen(
 
                 // Smooth Curved Area Chart with Gridlines
                 EcoSmoothAreaChart(
-                    labels = listOf("00h", "04h", "08h", "12h", "16h", "20h", "24h"),
+                    labels = emptyList(),
                     dataPoints = hourlyPoints,
                     primaryColor = EcoGreenPrimary,
                     modifier = Modifier.fillMaxWidth()

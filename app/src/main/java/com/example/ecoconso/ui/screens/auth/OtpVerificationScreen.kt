@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.auth
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -52,12 +53,12 @@ fun OtpVerificationScreen(
     onNavigateBack: () -> Unit,
     onOtpValidated: () -> Unit
 ) {
-    val otpDigits = listOf("4", "8", "2", "9", "1", "6")
+    val otpDigits = List(6) { "" }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Vérification du compte", onBackClick = onNavigateBack)
 
@@ -71,13 +72,13 @@ fun OtpVerificationScreen(
                 text = "Vérifiez votre compte",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
-                text = "Pour terminer votre inscription, saisissez le code à 6 chiffres envoyé à :\njean.dupont@email.fr",
+                text = "Pour terminer votre inscription, saisissez le code à 6 chiffres envoyé à votre adresse e-mail.",
                 fontSize = 14.sp,
-                color = EcoTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 6.dp, bottom = 24.dp)
             )
 
@@ -85,10 +86,10 @@ fun OtpVerificationScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(20.dp))
-                    .background(EcoSurfaceWhite)
+                    .background(MaterialTheme.colorScheme.onPrimary)
                     .padding(20.dp)
             ) {
-                Text("Code reçu", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Code reçu", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // OTP Digits Display
@@ -101,7 +102,7 @@ fun OtpVerificationScreen(
                             modifier = Modifier
                                 .size(44.dp)
                                 .clip(RoundedCornerShape(10.dp))
-                                .background(EcoBackgroundLight)
+                                .background(MaterialTheme.colorScheme.background)
                                 .border(1.5.dp, EcoGreenPrimary, RoundedCornerShape(10.dp)),
                             contentAlignment = Alignment.Center
                         ) {
@@ -109,7 +110,7 @@ fun OtpVerificationScreen(
                                 text = digit,
                                 fontSize = 20.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = EcoTextPrimary
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     }
@@ -122,7 +123,7 @@ fun OtpVerificationScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp))
-                        .background(EcoGreenLight)
+                        .background(MaterialTheme.colorScheme.primaryContainer)
                         .padding(12.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -130,7 +131,7 @@ fun OtpVerificationScreen(
                         Spacer(modifier = Modifier.width(10.dp))
                         Column {
                             Text("Code validé", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
-                            Text("Votre adresse e-mail est vérifiée. Votre compte est prêt.", fontSize = 12.sp, color = EcoTextSecondary)
+                            Text("Votre adresse e-mail est vérifiée. Votre compte est prêt.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
@@ -143,7 +144,7 @@ fun OtpVerificationScreen(
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
                 ) {
-                    Text("Continuer vers mon tableau de bord", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                    Text("Continuer vers mon tableau de bord", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -162,15 +163,15 @@ fun OtpVerificationScreen(
             Text(
                 text = "Vous n'avez pas reçu le code ? Vérifiez les indésirables avant de demander un nouvel envoi.",
                 fontSize = 12.sp,
-                color = EcoTextMuted
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(20.dp))
 
             EcoCard {
-                Text("Un contact à corriger ?", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Un contact à corriger ?", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(4.dp))
-                Text("Revenez à l'inscription pour modifier votre téléphone ou votre adresse e-mail.", fontSize = 12.sp, color = EcoTextSecondary)
+                Text("Revenez à l'inscription pour modifier votre téléphone ou votre adresse e-mail.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = "Modifier mes coordonnées",

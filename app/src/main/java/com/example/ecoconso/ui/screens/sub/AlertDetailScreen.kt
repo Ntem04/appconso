@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -50,7 +51,7 @@ fun AlertDetailScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Détail de l'alerte", onBackClick = onNavigateBack)
 
@@ -77,41 +78,41 @@ fun AlertDetailScreen(
 
                     Column {
                         Text("Surconsommation", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = EcoRedError)
-                        Text("20 septembre 2025 · 19:10", fontSize = 12.sp, color = EcoTextMuted)
+                        Text("20 septembre 2025 · 19:10", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Text("16,2 kWh", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("16,2 kWh", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(4.dp))
                 Text("Votre seuil de 15 kWh a été dépassé.", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoRedError)
-                Text("+1,2 kWh au-dessus du seuil quotidien, soit +8 %.", fontSize = 12.sp, color = EcoTextSecondary)
+                Text("+1,2 kWh au-dessus du seuil quotidien, soit +8 %.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Observations Card
             EcoCard {
-                Text("Ce qui a été observé", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Ce qui a été observé", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Période concernée : 20 septembre, de 00:00 à 19:10", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextPrimary)
-                Text("La consommation cumulée a franchi votre repère quotidien.", fontSize = 12.sp, color = EcoTextSecondary)
+                Text("Période concernée : 20 septembre, de 00:00 à 19:10", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+                Text("La consommation cumulée a franchi votre repère quotidien.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Le compteur ne permet pas à lui seul d'identifier l'appareil responsable.", fontSize = 12.sp, color = EcoTextMuted)
+                Text("Le compteur ne permet pas à lui seul d'identifier l'appareil responsable.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Actionable Steps Card
             EcoCard {
-                Text("Que faire maintenant ?", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Que faire maintenant ?", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("• Vérifiez si plusieurs appareils puissants fonctionnent en même temps : four, lave-linge ou chauffage.", fontSize = 13.sp, color = EcoTextSecondary)
+                Text("• Vérifiez si plusieurs appareils puissants fonctionnent en même temps : four, lave-linge ou chauffage.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(6.dp))
-                Text("• Éteignez les équipements inutilisés et consultez la courbe pour repérer les heures les plus consommatrices.", fontSize = 13.sp, color = EcoTextSecondary)
+                Text("• Éteignez les équipements inutilisés et consultez la courbe pour repérer les heures les plus consommatrices.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -122,7 +123,7 @@ fun AlertDetailScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
             ) {
-                Text("Voir la consommation du 20 septembre", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                Text("Voir la consommation du 20 septembre", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
             }
 
             Spacer(modifier = Modifier.height(10.dp))

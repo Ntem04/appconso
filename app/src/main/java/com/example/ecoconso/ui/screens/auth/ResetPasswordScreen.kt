@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.auth
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -58,7 +59,7 @@ fun ResetPasswordScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Réinitialisation", onBackClick = onNavigateBack)
 
@@ -72,13 +73,13 @@ fun ResetPasswordScreen(
                 text = "Nouveau mot de passe",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
                 text = "Choisissez un mot de passe différent de l'ancien pour retrouver l'accès à votre compte.",
                 fontSize = 14.sp,
-                color = EcoTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 6.dp, bottom = 20.dp)
             )
 
@@ -86,20 +87,20 @@ fun ResetPasswordScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(20.dp))
-                    .background(EcoSurfaceWhite)
+                    .background(MaterialTheme.colorScheme.onPrimary)
                     .padding(20.dp)
             ) {
-                Text("Nouveau mot de passe", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Nouveau mot de passe", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = newPassword,
                     onValueChange = { newPassword = it },
-                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -113,21 +114,21 @@ fun ResetPasswordScreen(
                     Icon(Icons.Default.CheckCircle, contentDescription = null, tint = EcoGreenPrimary, modifier = Modifier.padding(end = 6.dp))
                     Text("Au moins un chiffre", fontSize = 12.sp, color = EcoGreenPrimary)
                 }
-                Text("Évitez votre nom ou votre numéro de téléphone.", fontSize = 11.sp, color = EcoTextMuted, modifier = Modifier.padding(top = 4.dp))
+                Text("Évitez votre nom ou votre numéro de téléphone.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 4.dp))
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Text("Confirmer le mot de passe", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Confirmer le mot de passe", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
-                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = MaterialTheme.colorScheme.outline)
                 )
                 Text("Les deux mots de passe correspondent.", fontSize = 12.sp, color = EcoGreenPrimary, modifier = Modifier.padding(top = 4.dp))
 
@@ -139,7 +140,7 @@ fun ResetPasswordScreen(
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
                 ) {
-                    Text("Enregistrer le nouveau mot de passe", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                    Text("Enregistrer le nouveau mot de passe", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -148,7 +149,7 @@ fun ResetPasswordScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(12.dp))
-                        .background(EcoGreenLight)
+                        .background(MaterialTheme.colorScheme.primaryContainer)
                         .padding(12.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -156,7 +157,7 @@ fun ResetPasswordScreen(
                         Spacer(modifier = Modifier.width(10.dp))
                         Column {
                             Text("Mot de passe réinitialisé", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
-                            Text("Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.", fontSize = 12.sp, color = EcoTextSecondary)
+                            Text("Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }

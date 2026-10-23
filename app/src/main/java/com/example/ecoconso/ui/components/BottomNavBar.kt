@@ -91,8 +91,8 @@ fun EcoBottomNavBar(
                     selectedIconColor = EcoGreenPrimary,
                     selectedTextColor = EcoGreenPrimary,
                     indicatorColor = EcoGreenPrimary.copy(alpha = 0.12f),
-                    unselectedIconColor = EcoTextMuted,
-                    unselectedTextColor = EcoTextMuted
+                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             )
         }

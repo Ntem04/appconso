@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.screens.sub
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +33,7 @@ import com.example.ecoconso.ui.components.EcoBarChart
 import com.example.ecoconso.ui.components.EcoBottomNavBar
 import com.example.ecoconso.ui.components.EcoCard
 import com.example.ecoconso.ui.components.EcoCategoryProgressItem
+import com.example.ecoconso.ui.components.EcoEmptyState
 import com.example.ecoconso.ui.components.EcoTopAppBar
 import com.example.ecoconso.ui.theme.EcoBackgroundLight
 import com.example.ecoconso.ui.theme.EcoBorderColor
@@ -49,10 +51,7 @@ fun MonthlyReportScreen(
     onNavigateToExport: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
-    val monthlyData = listOf(
-        BarChartItem("Août", 0f),
-        BarChartItem("Sept", 0f, isHighlighted = true)
-    )
+    val monthlyData = emptyList<BarChartItem>()
 
     Scaffold(
         topBar = { EcoTopAppBar(title = "Rapport mensuel", onBackClick = onNavigateBack) },
@@ -61,12 +60,12 @@ fun MonthlyReportScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EcoBackgroundLight)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
         ) {
-            Text("Septembre 2025", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+            Text("Rapport mensuel", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -77,18 +76,18 @@ fun MonthlyReportScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column {
-                        Text("Consommation", fontSize = 13.sp, color = EcoTextSecondary)
+                        Text("Consommation", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("0 kWh", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                        Text("—", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                     }
                     Column(horizontalAlignment = Alignment.End) {
-                        Text("Coût estimé", fontSize = 13.sp, color = EcoTextSecondary)
+                        Text("Coût estimé", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("0 FCFA", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text("—", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                     }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-                Text("Coût en FCFA · Estimation, hors valeur de facture", fontSize = 11.sp, color = EcoTextMuted)
+                Text("Coût en FCFA · Estimation, hors valeur de facture", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -100,35 +99,36 @@ fun MonthlyReportScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text("Évolution mensuelle", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
-                    Text("0 %", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                    Text("Évolution mensuelle", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+                    Text("—", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                EcoBarChart(items = monthlyData, chartHeight = 120)
+                if (monthlyData.isEmpty()) {
+                    EcoEmptyState("Aucun rapport disponible.")
+                } else {
+                    EcoBarChart(items = monthlyData, chartHeight = 120)
+                }
 
                 Spacer(modifier = Modifier.height(12.dp))
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text("0 kWh d'écart par rapport au mois précédent.", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = EcoGreenPrimary)
+                Text("Les comparaisons apparaîtront après réception des données.", fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = EcoGreenPrimary)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Estimated Category Breakdown
             EcoCard {
-                Text("Répartition estimée", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Text("Répartition estimée", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                 Spacer(modifier = Modifier.height(12.dp))
 
-                EcoCategoryProgressItem("Électroménager", 0, EcoGreenPrimary)
-                EcoCategoryProgressItem("Chauffage", 0, EcoSkyBlue)
-                EcoCategoryProgressItem("Éclairage", 0, EcoGreenPrimary.copy(alpha = 0.8f))
-                EcoCategoryProgressItem("Autres", 0, EcoTextMuted)
+                EcoEmptyState("Aucune répartition disponible.")
 
                 Spacer(modifier = Modifier.height(10.dp))
-                Text("Parts indicatives par catégorie d'appareils.", fontSize = 11.sp, color = EcoTextMuted)
+                Text("Parts indicatives par catégorie d'appareils.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -139,9 +139,9 @@ fun MonthlyReportScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
             ) {
-                Icon(Icons.Default.Download, contentDescription = null, tint = EcoSurfaceWhite)
+                Icon(Icons.Default.Download, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Exporter ce rapport", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoSurfaceWhite)
+                Text("Exporter ce rapport", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
             }
         }
     }

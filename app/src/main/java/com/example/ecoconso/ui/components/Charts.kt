@@ -1,4 +1,5 @@
 package com.example.ecoconso.ui.components
+import androidx.compose.material3.MaterialTheme
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -105,7 +106,7 @@ fun EcoBarChart(
                 Text(
                     text = item.label,
                     fontSize = 11.sp,
-                    color = if (item.isHighlighted) EcoGreenPrimary else EcoTextMuted,
+                    color = if (item.isHighlighted) EcoGreenPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = if (item.isHighlighted) FontWeight.Bold else FontWeight.Normal,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.width(24.dp)
@@ -117,7 +118,7 @@ fun EcoBarChart(
 
 @Composable
 fun EcoLineSparkline(
-    dataPoints: List<Float> = listOf(30f, 60f, 45f, 75f, 55f, 85f, 65f),
+    dataPoints: List<Float>,
     lineColor: Color = Color.White,
     modifier: Modifier = Modifier
 ) {
@@ -157,8 +158,8 @@ fun EcoLineSparkline(
 // --- Curved Line Area Chart for ConsoDetailScreen ---
 @Composable
 fun EcoSmoothAreaChart(
-    labels: List<String> = listOf("00h", "04h", "08h", "12h", "16h", "20h", "24h"),
-    dataPoints: List<Float> = listOf(10f, 20f, 15f, 35f, 30f, 70f, 45f),
+    labels: List<String>,
+    dataPoints: List<Float>,
     primaryColor: Color = EcoGreenPrimary,
     modifier: Modifier = Modifier
 ) {
@@ -263,7 +264,7 @@ fun EcoSmoothAreaChart(
                 Text(
                     text = label,
                     fontSize = 11.sp,
-                    color = EcoTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
                 )
             }
@@ -279,6 +280,8 @@ fun EcoDonutChart(
     unitText: String,
     modifier: Modifier = Modifier
 ) {
+    val outlineColor = MaterialTheme.colorScheme.outline
+
     Box(
         modifier = modifier.size(140.dp),
         contentAlignment = Alignment.Center
@@ -290,7 +293,7 @@ fun EcoDonutChart(
             if (total <= 0f) {
                 // Empty Track Ring
                 drawArc(
-                    color = EcoBorderColor,
+                    color = outlineColor,
                     startAngle = 0f,
                     sweepAngle = 360f,
                     useCenter = false,
@@ -319,12 +322,12 @@ fun EcoDonutChart(
                 text = valueText,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
             Text(
                 text = unitText,
                 fontSize = 12.sp,
-                color = EcoTextMuted
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
     }
