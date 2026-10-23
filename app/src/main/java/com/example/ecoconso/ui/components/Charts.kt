@@ -99,3 +99,42 @@ fun EcoBarChart(
         }
     }
 }
+
+@Composable
+fun EcoLineSparkline(
+    dataPoints: List<Float> = listOf(30f, 60f, 45f, 75f, 55f, 85f, 65f),
+    lineColor: Color = Color.White,
+    modifier: Modifier = Modifier
+) {
+    androidx.compose.foundation.Canvas(modifier = modifier) {
+        if (dataPoints.isEmpty()) return@Canvas
+        val min = dataPoints.minOrNull() ?: 0f
+        val max = dataPoints.maxOrNull() ?: 100f
+        val range = (max - min).coerceAtLeast(1f)
+
+        val path = androidx.compose.ui.graphics.Path()
+        val width = size.width
+        val height = size.height
+        val stepX = width / (dataPoints.size - 1).coerceAtLeast(1)
+
+        dataPoints.forEachIndexed { i, pt ->
+            val x = i * stepX
+            val y = height - ((pt - min) / range * (height - 10.dp.toPx())) - 5.dp.toPx()
+            if (i == 0) {
+                path.moveTo(x, y)
+            } else {
+                path.lineTo(x, y)
+            }
+        }
+
+        drawPath(
+            path = path,
+            color = lineColor,
+            style = androidx.compose.ui.graphics.drawscope.Stroke(
+                width = 3.dp.toPx(),
+                cap = androidx.compose.ui.graphics.StrokeCap.Round,
+                join = androidx.compose.ui.graphics.StrokeJoin.Round
+            )
+        )
+    }
+}

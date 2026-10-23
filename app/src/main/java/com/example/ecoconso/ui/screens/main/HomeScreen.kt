@@ -17,37 +17,43 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Bolt
-import androidx.compose.material.icons.filled.ElectricBolt
-import androidx.compose.material.icons.filled.Lightbulb
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Speed
-import androidx.compose.material3.Badge
-import androidx.compose.material3.BadgedBox
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.outlined.ElectricBolt
+import androidx.compose.material.icons.outlined.EnergySavingsLeaf
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ecoconso.ui.components.BarChartItem
 import com.example.ecoconso.ui.components.EcoBarChart
 import com.example.ecoconso.ui.components.EcoBottomNavBar
 import com.example.ecoconso.ui.components.EcoCard
-import com.example.ecoconso.ui.components.EcoStatCard
+import com.example.ecoconso.ui.components.EcoLineSparkline
 import com.example.ecoconso.ui.theme.EcoBackgroundLight
+import com.example.ecoconso.ui.theme.EcoBorderColor
 import com.example.ecoconso.ui.theme.EcoGreenLight
 import com.example.ecoconso.ui.theme.EcoGreenPrimary
 import com.example.ecoconso.ui.theme.EcoRedError
-import com.example.ecoconso.ui.theme.EcoSkyBlue
 import com.example.ecoconso.ui.theme.EcoSurfaceWhite
 import com.example.ecoconso.ui.theme.EcoTextMuted
 import com.example.ecoconso.ui.theme.EcoTextPrimary
@@ -55,12 +61,6 @@ import com.example.ecoconso.ui.theme.EcoTextSecondary
 import com.example.ecoconso.ui.viewmodels.HomeUiState
 import com.example.ecoconso.ui.viewmodels.HomeViewModel
 import java.util.Locale
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.ui.text.style.TextAlign
 
 @Composable
 fun HomeScreen(
@@ -77,7 +77,7 @@ fun HomeScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EcoBackgroundLight)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
         ) {
             when (val state = uiState) {
@@ -89,10 +89,12 @@ fun HomeScreen(
                 }
                 is HomeUiState.Error -> {
                     Column(
-                        modifier = Modifier.align(Alignment.Center).padding(24.dp),
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Icon(Icons.Default.ElectricBolt, contentDescription = null, tint = EcoRedError, modifier = Modifier.size(48.dp))
+                        Icon(Icons.Outlined.ElectricBolt, contentDescription = null, tint = EcoRedError, modifier = Modifier.size(48.dp))
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(state.message, color = EcoRedError, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
                         Spacer(modifier = Modifier.height(16.dp))
@@ -103,11 +105,11 @@ fun HomeScreen(
                 }
                 is HomeUiState.Success -> {
                     val data = state.data
-                    val weeklyData = data.weeklyData.mapIndexed { index, wd ->
+                    val weeklyBarItems = data.weeklyData.map { wd ->
                         BarChartItem(
                             label = wd.day,
                             value = wd.kwh,
-                            isHighlighted = index == data.weeklyData.lastIndex - 1 // Highlight Saturday
+                            isHighlighted = false
                         )
                     }
 
@@ -117,35 +119,118 @@ fun HomeScreen(
                             .verticalScroll(rememberScrollState())
                             .padding(horizontal = 20.dp, vertical = 16.dp)
                     ) {
-                        // Header
+                        // --- Top Brand Header ---
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Column {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = Icons.Outlined.ElectricBolt,
+                                    contentDescription = null,
+                                    tint = EcoGreenPrimary,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
                                 Text(
                                     text = "E-Consommation",
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = EcoGreenPrimary
-                                )
-                                Text(
-                                    text = "Bonjour, Ntem dilane",
-                                    fontSize = 20.sp,
+                                    fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
-                                    color = EcoTextPrimary
+                                    color = MaterialTheme.colorScheme.onBackground
                                 )
                             }
 
                             IconButton(onClick = onNavigateToNotifications) {
-                                BadgedBox(
-                                    badge = { Badge { Text("2") } }
-                                ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Notifications,
+                                    contentDescription = "Notifications",
+                                    tint = MaterialTheme.colorScheme.onBackground
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        // --- Welcome User Title ---
+                        Text(
+                            text = "Gardez le contrôle de votre consommation.",
+                            fontSize = 13.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = "Bonjour, Ntem dilanet",
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        // --- Main Big Card: Consommation du jour (Green Card) ---
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(20.dp),
+                            colors = CardDefaults.cardColors(containerColor = EcoGreenPrimary),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(20.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
                                     Icon(
-                                        imageVector = Icons.Default.Notifications,
-                                        contentDescription = "Notifications",
-                                        tint = EcoTextPrimary
+                                        imageVector = Icons.Outlined.ElectricBolt,
+                                        contentDescription = null,
+                                        tint = EcoSurfaceWhite,
+                                        modifier = Modifier.size(18.dp)
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = "Consommation du jour",
+                                        fontSize = 13.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = EcoSurfaceWhite.copy(alpha = 0.9f)
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.height(16.dp))
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.Bottom
+                                ) {
+                                    Column {
+                                        Row(verticalAlignment = Alignment.Bottom) {
+                                            Text(
+                                                text = String.format(Locale.FRANCE, "%.1f", data.totalKwh),
+                                                fontSize = 36.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                color = EcoSurfaceWhite
+                                            )
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Text(
+                                                text = "kWh",
+                                                fontSize = 18.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                color = EcoSurfaceWhite,
+                                                modifier = Modifier.padding(bottom = 4.dp)
+                                            )
+                                        }
+                                        Spacer(modifier = Modifier.height(6.dp))
+                                        Text(
+                                            text = "${data.percentVsYesterday} % par rapport à hier",
+                                            fontSize = 12.sp,
+                                            color = EcoSurfaceWhite.copy(alpha = 0.85f)
+                                        )
+                                    }
+
+                                    // White Line Sparkline Chart
+                                    EcoLineSparkline(
+                                        dataPoints = listOf(30f, 60f, 45f, 75f, 55f, 85f, 65f),
+                                        lineColor = EcoSurfaceWhite,
+                                        modifier = Modifier
+                                            .width(130.dp)
+                                            .height(60.dp)
                                     )
                                 }
                             }
@@ -153,92 +238,130 @@ fun HomeScreen(
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        // Consommation du jour Card
-                        EcoStatCard(
-                            title = "Consommation du jour",
-                            value = String.format(Locale.FRANCE, "%.1f kWh", data.totalKwh),
-                            badgeText = "${data.percentVsYesterday} % par rapport à hier",
-                            isPositiveChange = data.percentVsYesterday <= 0,
-                            icon = Icons.Default.ElectricBolt,
-                            iconTint = EcoGreenPrimary
-                        )
-
-                        Spacer(modifier = Modifier.height(12.dp))
-
-                        // Coût estimé & Puissance row
+                        // --- Row of 3 Stat Cards ---
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
                         ) {
-                            EcoStatCard(
-                                modifier = Modifier.weight(1f),
-                                title = "Coût estimé",
-                                value = "${data.estimatedCostFcfa} FCFA",
-                                subtitle = "Tarif en vigueur",
-                                icon = Icons.Default.Bolt,
-                                iconTint = EcoSkyBlue
-                            )
+                            // Card 1: Coût estimé
+                            EcoCard(modifier = Modifier.weight(1f)) {
+                                Column {
+                                    Text(
+                                        text = "Coût estimé",
+                                        fontSize = 11.sp,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Spacer(modifier = Modifier.height(6.dp))
+                                    Text(
+                                        text = String.format(Locale.FRANCE, "%.2f €", data.estimatedCostFcfa / 1000f),
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
 
-                            EcoStatCard(
-                                modifier = Modifier.weight(1f),
-                                title = "Puissance",
-                                value = String.format(Locale.FRANCE, "%.1f kW", data.activePowerKw),
-                                subtitle = "Compteur actif",
-                                icon = Icons.Default.Speed,
-                                iconTint = EcoGreenPrimary
-                            )
+                            // Card 2: Puissance
+                            EcoCard(modifier = Modifier.weight(1f)) {
+                                Column {
+                                    Text(
+                                        text = "Puissance",
+                                        fontSize = 11.sp,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Spacer(modifier = Modifier.height(6.dp))
+                                    Text(
+                                        text = String.format(Locale.FRANCE, "%.1f kW", data.activePowerKw),
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
+
+                            // Card 3: Votre abonnement
+                            EcoCard(modifier = Modifier.weight(1f)) {
+                                Column {
+                                    Text(
+                                        text = "Votre abonnement",
+                                        fontSize = 11.sp,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Spacer(modifier = Modifier.height(6.dp))
+                                    Text(
+                                        text = "${data.subscribedPowerKva} kVA",
+                                        fontSize = 18.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                }
+                            }
                         }
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        // Chart Card (7 derniers jours)
+                        // --- Card: Ma consommation (Bar Chart) ---
                         EcoCard {
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Column {
-                                    Text("Ma consommation", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
-                                    Text("7 derniers jours", fontSize = 12.sp, color = EcoTextSecondary)
-                                }
+                                Text(
+                                    text = "Ma consommation",
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
 
-                                Surface(
-                                    shape = RoundedCornerShape(12.dp),
-                                    color = EcoGreenLight
-                                ) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(
-                                        text = "Abonnement: ${data.subscribedPowerKva} kVA",
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = EcoGreenPrimary,
-                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                                        text = "7 derniers jours",
+                                        fontSize = 12.sp,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Icon(
+                                        imageVector = Icons.Default.KeyboardArrowDown,
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.size(18.dp)
                                     )
                                 }
                             }
 
                             Spacer(modifier = Modifier.height(20.dp))
 
-                            EcoBarChart(items = weeklyData, chartHeight = 130)
+                            EcoBarChart(
+                                items = weeklyBarItems,
+                                barColor = EcoGreenPrimary,
+                                highlightColor = EcoGreenPrimary,
+                                chartHeight = 120
+                            )
 
                             Spacer(modifier = Modifier.height(16.dp))
 
                             Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(EcoBackgroundLight)
-                                    .padding(12.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("Total de la semaine", fontSize = 13.sp, color = EcoTextSecondary)
-                                Text(String.format(Locale.FRANCE, "%.1f kWh", data.weeklyTotalKwh), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                                Text(
+                                    text = "Total de la semaine",
+                                    fontSize = 13.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = String.format(Locale.FRANCE, "%.1f kWh", data.weeklyTotalKwh),
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
                             }
                         }
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        // Eco Tip Banner
+                        // --- Bottom Eco Tip Banner ---
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -247,20 +370,12 @@ fun HomeScreen(
                                 .padding(16.dp)
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .clip(CircleShape)
-                                        .background(EcoGreenPrimary),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Lightbulb,
-                                        contentDescription = null,
-                                        tint = EcoSurfaceWhite,
-                                        modifier = Modifier.size(22.dp)
-                                    )
-                                }
+                                Icon(
+                                    imageVector = Icons.Outlined.EnergySavingsLeaf,
+                                    contentDescription = null,
+                                    tint = EcoGreenPrimary,
+                                    modifier = Modifier.size(28.dp)
+                                )
                                 Spacer(modifier = Modifier.width(12.dp))
                                 Column {
                                     Text(
