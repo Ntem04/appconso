@@ -47,7 +47,7 @@ app.get('/api/consommation/appliances', (req, res) => {
 });
 
 // Lancement du serveur
-app.listen(PORT, () => {
-    console.log(`✅ Serveur Démarré sur http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Serveur Démarré sur http://0.0.0.0:${PORT}`);
     console.log(`🔄 Mode Dev avec Nodemon activé !`);
 });
