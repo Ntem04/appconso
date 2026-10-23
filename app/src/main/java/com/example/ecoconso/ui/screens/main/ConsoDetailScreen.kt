@@ -7,25 +7,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import java.util.Locale
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
-import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,19 +36,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ecoconso.ui.components.BarChartItem
-import com.example.ecoconso.ui.components.EcoBarChart
-import com.example.ecoconso.ui.components.EcoBottomNavBar
+import com.example.ecoconso.ui.components.DonutSegment
 import com.example.ecoconso.ui.components.EcoCard
-import com.example.ecoconso.ui.components.EcoCategoryProgressItem
+import com.example.ecoconso.ui.components.EcoDonutChart
+import com.example.ecoconso.ui.components.EcoSmoothAreaChart
 import com.example.ecoconso.ui.components.EcoTopAppBar
-import com.example.ecoconso.ui.theme.EcoBackgroundLight
+import com.example.ecoconso.ui.theme.EcoBorderColor
+import com.example.ecoconso.ui.theme.EcoGreenLight
 import com.example.ecoconso.ui.theme.EcoGreenPrimary
-import com.example.ecoconso.ui.theme.EcoRedError
 import com.example.ecoconso.ui.theme.EcoSkyBlue
 import com.example.ecoconso.ui.theme.EcoSurfaceWhite
 import com.example.ecoconso.ui.theme.EcoTextMuted
@@ -57,150 +59,263 @@ import com.example.ecoconso.ui.theme.EcoTextSecondary
 @Composable
 fun ConsoDetailScreen(
     currentRoute: String,
-    onNavigate: (String) -> Unit
+    onNavigate: (String) -> Unit,
+    totalKwh: Float = 12.4f,
+    percentVsYesterday: Float = -8f,
+    hourlyPoints: List<Float> = listOf(20f, 30f, 15f, 40f, 35f, 70f, 50f),
+    applianceBreakdown: List<Pair<String, Int>> = listOf(
+        "Électroménager" to 45,
+        "Chauffage" to 30,
+        "Éclairage" to 15,
+        "Autres" to 10
+    )
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val timeTabs = listOf("Jour", "Semaine", "Mois", "Année")
 
-    val hourlyData = listOf(
-        BarChartItem("00h", 0f),
-        BarChartItem("04h", 0f),
-        BarChartItem("08h", 0f),
-        BarChartItem("12h", 0f),
-        BarChartItem("16h", 0f, isHighlighted = true),
-        BarChartItem("20h", 0f),
-        BarChartItem("24h", 0f)
+    val donutColors = listOf(
+        EcoGreenPrimary,
+        EcoGreenPrimary.copy(alpha = 0.6f),
+        EcoGreenPrimary.copy(alpha = 0.4f),
+        EcoBorderColor
     )
+
+    val donutSegments = applianceBreakdown.mapIndexed { index, pair ->
+        DonutSegment(
+            percentage = pair.second.toFloat(),
+            color = donutColors.getOrElse(index) { EcoGreenPrimary }
+        )
+    }
 
     Scaffold(
         topBar = { EcoTopAppBar(title = "Détails de consommation") },
-        bottomBar = { EcoBottomNavBar(currentRoute = currentRoute, onNavigate = onNavigate) }
+        bottomBar = {
+            com.example.ecoconso.ui.components.EcoBottomNavBar(
+                currentRoute = currentRoute,
+                onNavigate = onNavigate
+            )
+        }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EcoBackgroundLight)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
+                .padding(horizontal = 20.dp, vertical = 12.dp)
         ) {
-            // Tab Row
-            TabRow(
-                selectedTabIndex = selectedTabIndex,
-                containerColor = EcoSurfaceWhite,
-                indicator = { tabPositions ->
-                    TabRowDefaults.SecondaryIndicator(
-                        modifier = Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
-                        color = EcoGreenPrimary
-                    )
-                }
+            // --- Pill Tab Selector (Jour, Semaine, Mois, Année) ---
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
+                shape = RoundedCornerShape(24.dp),
+                color = MaterialTheme.colorScheme.surface,
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
             ) {
-                timeTabs.forEachIndexed { index, title ->
-                    Tab(
-                        selected = selectedTabIndex == index,
-                        onClick = { selectedTabIndex = index },
-                        text = {
-                            Text(
-                                text = title,
-                                fontWeight = if (selectedTabIndex == index) FontWeight.Bold else FontWeight.Normal,
-                                color = if (selectedTabIndex == index) EcoGreenPrimary else EcoTextSecondary
-                            )
-                        }
-                    )
-                }
-            }
-
-            Column(modifier = Modifier.padding(20.dp)) {
-                // Date selector row
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(4.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.ChevronLeft,
-                        contentDescription = "Précédent",
-                        tint = EcoTextSecondary,
-                        modifier = Modifier.clickable { }
-                    )
-                    Text(
-                        text = "Samedi 27 septembre 2025",
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = EcoTextPrimary
-                    )
-                    Icon(
-                        imageVector = Icons.Default.ChevronRight,
-                        contentDescription = "Suivant",
-                        tint = EcoTextSecondary,
-                        modifier = Modifier.clickable { }
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Consumption Total Card
-                EcoCard {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column {
-                            Text("Consommation totale", fontSize = 13.sp, color = EcoTextSecondary)
-                            Spacer(modifier = Modifier.height(4.dp))
-                            Text("12,4 kWh", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
-                        }
-
+                    timeTabs.forEachIndexed { index, title ->
+                        val isSelected = selectedTabIndex == index
                         Box(
                             modifier = Modifier
+                                .weight(1f)
+                                .fillMaxHeight()
                                 .clip(RoundedCornerShape(20.dp))
-                                .background(EcoGreenPrimary.copy(alpha = 0.12f))
-                                .padding(horizontal = 12.dp, vertical = 6.dp)
+                                .background(if (isSelected) EcoGreenPrimary else Color.Transparent)
+                                .clickable { selectedTabIndex = index },
+                            contentAlignment = Alignment.Center
                         ) {
-                            Text("0 % vs hier", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                            Text(
+                                text = title,
+                                fontSize = 13.sp,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                                color = if (isSelected) EcoSurfaceWhite else MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // --- Date Selector Row ---
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ChevronLeft,
+                    contentDescription = "Précédent",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.clickable { }
+                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.CalendarMonth,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Samedi 27 septembre 2025",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+                Icon(
+                    imageVector = Icons.Default.ChevronRight,
+                    contentDescription = "Suivant",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.clickable { }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // --- Card 1: Consommation totale (Smooth Curved Area Chart) ---
+            EcoCard {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Top
+                ) {
+                    Column {
+                        Text(
+                            text = "Consommation totale",
+                            fontSize = 13.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Row(verticalAlignment = Alignment.Bottom) {
+                            Text(
+                                text = String.format(Locale.FRANCE, "%.1f", totalKwh),
+                                fontSize = 32.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "kWh",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface,
+                                modifier = Modifier.padding(bottom = 4.dp)
+                            )
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    EcoBarChart(items = hourlyData, chartHeight = 150)
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = EcoGreenLight
+                    ) {
+                        Text(
+                            text = "${percentVsYesterday.toInt()} % vs hier",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = EcoGreenPrimary,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        )
+                    }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
-                // Appliance Breakdown Card
-                EcoCard {
-                    Text("Répartition par appareil", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    EcoCategoryProgressItem("Électroménager", 45, EcoGreenPrimary)
-                    EcoCategoryProgressItem("Chauffage", 30, EcoSkyBlue)
-                    EcoCategoryProgressItem("Éclairage", 15, EcoGreenPrimary.copy(alpha = 0.7f))
-                    EcoCategoryProgressItem("Autres", 10, EcoTextMuted)
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Live Counter Footer Banner
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(EcoSurfaceWhite)
-                        .padding(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(Icons.Default.Info, contentDescription = null, tint = EcoSkyBlue, modifier = Modifier.size(18.dp))
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Données du compteur · Mise à jour à 14:32",
-                        fontSize = 12.sp,
-                        color = EcoTextSecondary
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
+                // Smooth Curved Area Chart with Gridlines
+                EcoSmoothAreaChart(
+                    labels = listOf("00h", "04h", "08h", "12h", "16h", "20h", "24h"),
+                    dataPoints = hourlyPoints,
+                    primaryColor = EcoGreenPrimary,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // --- Card 2: Répartition par appareil (Donut Ring Chart + Legend) ---
+            EcoCard {
+                Text(
+                    text = "Répartition par appareil",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // Left Donut Ring Chart
+                    EcoDonutChart(
+                        segments = donutSegments,
+                        valueText = String.format(Locale.FRANCE, "%.1f", totalKwh),
+                        unitText = "kWh",
+                        modifier = Modifier.size(130.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    // Right Legend List
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        applianceBreakdown.forEachIndexed { index, pair ->
+                            val segColor = donutColors.getOrElse(index) { EcoGreenPrimary }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(10.dp)
+                                            .clip(CircleShape)
+                                            .background(segColor)
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Text(
+                                        text = pair.first,
+                                        fontSize = 12.sp,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                                Text(
+                                    text = "${pair.second} %",
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // --- Footer Timestamp ---
+            Text(
+                text = "Données du compteur · Mise à jour à 14:32",
+                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
