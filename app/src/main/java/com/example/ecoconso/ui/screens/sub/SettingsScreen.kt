@@ -41,6 +41,9 @@ import com.example.ecoconso.ui.theme.EcoTextMuted
 import com.example.ecoconso.ui.theme.EcoTextPrimary
 import com.example.ecoconso.ui.theme.EcoTextSecondary
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import com.example.ecoconso.ui.theme.ThemeManager
+
 @Composable
 fun SettingsScreen(
     currentRoute: String,
@@ -51,6 +54,10 @@ fun SettingsScreen(
     onNavigateToAbout: () -> Unit,
     onNavigateBack: () -> Unit
 ) {
+    val systemInDark = isSystemInDarkTheme()
+    var isDarkModeActive by remember {
+        mutableStateOf(ThemeManager.isDarkModeManual ?: systemInDark)
+    }
     var limitAnimations by remember { mutableStateOf(false) }
     var backgroundSync by remember { mutableStateOf(true) }
 
@@ -70,6 +77,27 @@ fun SettingsScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             EcoCard {
+                // Mode Sombre / Dark Mode Switch
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text("Mode Sombre", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
+                        Text(if (isDarkModeActive) "Thème sombre activé" else "Thème clair activé", fontSize = 12.sp, color = EcoTextSecondary)
+                    }
+                    Switch(
+                        checked = isDarkModeActive,
+                        onCheckedChange = { enabled ->
+                            isDarkModeActive = enabled
+                            ThemeManager.toggleDarkMode(enabled)
+                        },
+                        colors = SwitchDefaults.colors(checkedThumbColor = EcoSurfaceWhite, checkedTrackColor = EcoGreenPrimary)
+                    )
+                }
+                HorizontalDivider(color = EcoBorderColor)
+
                 // Langue
                 Row(
                     modifier = Modifier.fillMaxWidth().clickable { }.padding(vertical = 12.dp),

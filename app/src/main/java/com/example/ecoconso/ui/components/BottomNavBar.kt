@@ -10,6 +10,7 @@ import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -71,7 +72,7 @@ fun EcoBottomNavBar(
     )
 
     NavigationBar(
-        containerColor = EcoSurfaceWhite,
+        containerColor = MaterialTheme.colorScheme.surface,
         tonalElevation = 8.dp
     ) {
         items.forEach { item ->

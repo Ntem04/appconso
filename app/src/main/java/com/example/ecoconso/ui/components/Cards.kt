@@ -46,8 +46,8 @@ import com.example.ecoconso.ui.theme.EcoTextSecondary
 @Composable
 fun EcoCard(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = EcoCardBg,
-    borderColor: Color = EcoBorderColor,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    borderColor: Color = MaterialTheme.colorScheme.outline,
     cornerRadius: Dp = 16.dp,
     content: @Composable () -> Unit
 ) {
@@ -85,7 +85,7 @@ fun EcoStatCard(
                 Text(
                     text = title,
                     fontSize = 13.sp,
-                    color = EcoTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.Medium
                 )
                 Spacer(modifier = Modifier.height(6.dp))
@@ -93,7 +93,7 @@ fun EcoStatCard(
                     text = value,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = EcoTextPrimary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 if (badgeText != null) {
                     Spacer(modifier = Modifier.height(6.dp))
@@ -132,7 +132,7 @@ fun EcoStatCard(
                     Text(
                         text = subtitle,
                         fontSize = 12.sp,
-                        color = EcoTextMuted
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }

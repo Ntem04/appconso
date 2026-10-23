@@ -10,6 +10,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -21,9 +22,14 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = EcoAmberWarning,
     background = EcoBackgroundDark,
     surface = EcoSurfaceDark,
-    onPrimary = EcoTextPrimary,
+    onPrimary = EcoSurfaceWhite,
+    onSecondary = EcoSurfaceWhite,
+    onTertiary = EcoSurfaceWhite,
     onBackground = EcoSurfaceWhite,
-    onSurface = EcoSurfaceWhite
+    onSurface = EcoSurfaceWhite,
+    outline = Color(0xFF334155),
+    surfaceVariant = Color(0xFF334155),
+    onSurfaceVariant = Color(0xFF94A3B8)
 )
 
 private val LightColorScheme = lightColorScheme(
@@ -37,12 +43,14 @@ private val LightColorScheme = lightColorScheme(
     onTertiary = EcoSurfaceWhite,
     onBackground = EcoTextPrimary,
     onSurface = EcoTextPrimary,
-    outline = EcoBorderColor
+    outline = EcoBorderColor,
+    surfaceVariant = EcoGreenLight,
+    onSurfaceVariant = EcoTextSecondary
 )
 
 @Composable
 fun EcoConsoTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = ThemeManager.isDarkModeManual ?: isSystemInDarkTheme(),
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {

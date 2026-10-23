@@ -14,6 +14,8 @@ import androidx.compose.ui.text.font.FontWeight
 import com.example.ecoconso.ui.theme.EcoBackgroundLight
 import com.example.ecoconso.ui.theme.EcoTextPrimary
 
+import androidx.compose.material3.MaterialTheme
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EcoTopAppBar(
@@ -26,7 +28,7 @@ fun EcoTopAppBar(
             Text(
                 text = title,
                 fontWeight = FontWeight.Bold,
-                color = EcoTextPrimary
+                color = MaterialTheme.colorScheme.onBackground
             )
         },
         navigationIcon = {
@@ -35,14 +37,14 @@ fun EcoTopAppBar(
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Retour",
-                        tint = EcoTextPrimary
+                        tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
             }
         },
         actions = actions,
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = EcoBackgroundLight
+            containerColor = MaterialTheme.colorScheme.background
         )
     )
 }
