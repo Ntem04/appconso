@@ -30,13 +30,14 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,15 +46,10 @@ import androidx.compose.ui.unit.sp
 import com.example.ecoconso.ui.components.EcoBottomNavBar
 import com.example.ecoconso.ui.components.EcoCard
 import com.example.ecoconso.ui.components.EcoTopAppBar
-import com.example.ecoconso.ui.theme.EcoBackgroundLight
-import com.example.ecoconso.ui.theme.EcoBorderColor
 import com.example.ecoconso.ui.theme.EcoGreenLight
 import com.example.ecoconso.ui.theme.EcoGreenPrimary
 import com.example.ecoconso.ui.theme.EcoRedError
 import com.example.ecoconso.ui.theme.EcoSurfaceWhite
-import com.example.ecoconso.ui.theme.EcoTextMuted
-import com.example.ecoconso.ui.theme.EcoTextPrimary
-import com.example.ecoconso.ui.theme.EcoTextSecondary
 
 @Composable
 fun ProfileScreen(
@@ -76,7 +72,7 @@ fun ProfileScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EcoBackgroundLight)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
@@ -100,9 +96,9 @@ fun ProfileScreen(
                     Spacer(modifier = Modifier.width(16.dp))
 
                     Column {
-                        Text("Ntem dilane", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
-                        Text("jean.dupont@email.fr", fontSize = 13.sp, color = EcoTextSecondary)
-                        Text("06 12 34 56 78", fontSize = 12.sp, color = EcoTextMuted)
+                        Text("Ntem dilane", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+                        Text("jean.dupont@email.fr", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text("06 12 34 56 78", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
             }
@@ -117,7 +113,7 @@ fun ProfileScreen(
                     subtitle = "Coordonnées personnelles",
                     onClick = onNavigateToPersonalInfo
                 )
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 ProfileMenuItem(
                     icon = Icons.Default.ElectricMeter,
@@ -125,7 +121,7 @@ fun ProfileScreen(
                     subtitle = "N° 01234567890123",
                     onClick = onNavigateToMeterDetails
                 )
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 ProfileMenuItem(
                     icon = Icons.Default.Devices,
@@ -133,7 +129,7 @@ fun ProfileScreen(
                     subtitle = "Répartition et équipements",
                     onClick = onNavigateToAppliances
                 )
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 ProfileMenuItem(
                     icon = Icons.Default.Tune,
@@ -141,7 +137,7 @@ fun ProfileScreen(
                     subtitle = "Alertes de consommation",
                     onClick = onNavigateToThresholds
                 )
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 ProfileMenuItem(
                     icon = Icons.Default.Notifications,
@@ -149,7 +145,7 @@ fun ProfileScreen(
                     subtitle = "Avis et alertes récents",
                     onClick = onNavigateToNotifications
                 )
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 ProfileMenuItem(
                     icon = Icons.Default.Settings,
@@ -157,7 +153,7 @@ fun ProfileScreen(
                     subtitle = "Langue, sobriété et sync",
                     onClick = onNavigateToSettings
                 )
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 ProfileMenuItem(
                     icon = Icons.AutoMirrored.Filled.HelpOutline,
@@ -165,7 +161,7 @@ fun ProfileScreen(
                     subtitle = "FAQ et contact client",
                     onClick = onNavigateToSupport
                 )
-                HorizontalDivider(color = EcoBorderColor)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
                 ProfileMenuItem(
                     icon = Icons.Default.Info,
@@ -178,18 +174,22 @@ fun ProfileScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             // Logout Button Item
-            Row(
+            Surface(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(16.dp))
-                    .background(EcoSurfaceWhite)
-                    .clickable { onLogout() }
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .clickable { onLogout() },
+                color = MaterialTheme.colorScheme.surface,
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
             ) {
-                Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = null, tint = EcoRedError)
-                Spacer(modifier = Modifier.width(12.dp))
-                Text("Se déconnecter", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoRedError)
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(Icons.AutoMirrored.Filled.Logout, contentDescription = null, tint = EcoRedError)
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text("Se déconnecter", fontSize = 15.sp, fontWeight = FontWeight.Bold, color = EcoRedError)
+                }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -198,8 +198,8 @@ fun ProfileScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("E-Consommation · Version 1.0.0", fontSize = 12.sp, color = EcoTextMuted)
-                Text("Vos données restent privées.", fontSize = 11.sp, color = EcoTextMuted)
+                Text("E-Consommation · Version 1.0.0", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text("Vos données restent privées.", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -234,11 +234,11 @@ fun ProfileMenuItem(
             }
             Spacer(modifier = Modifier.width(12.dp))
             Column {
-                Text(text = title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                Text(text = subtitle, fontSize = 12.sp, color = EcoTextSecondary)
+                Text(text = title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                Text(text = subtitle, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
-        Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextMuted)
+        Icon(Icons.Default.ChevronRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 

@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -39,14 +40,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ecoconso.ui.components.EcoCard
 import com.example.ecoconso.ui.components.EcoTopAppBar
-import com.example.ecoconso.ui.theme.EcoBackgroundLight
-import com.example.ecoconso.ui.theme.EcoBorderColor
 import com.example.ecoconso.ui.theme.EcoGreenLight
 import com.example.ecoconso.ui.theme.EcoGreenPrimary
 import com.example.ecoconso.ui.theme.EcoSurfaceWhite
-import com.example.ecoconso.ui.theme.EcoTextMuted
-import com.example.ecoconso.ui.theme.EcoTextPrimary
-import com.example.ecoconso.ui.theme.EcoTextSecondary
 
 @Composable
 fun PersonalInfoScreen(
@@ -61,7 +57,7 @@ fun PersonalInfoScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(EcoBackgroundLight)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         EcoTopAppBar(title = "Informations personnelles", onBackClick = onNavigateBack)
 
@@ -71,44 +67,53 @@ fun PersonalInfoScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
         ) {
-            Text("Vos coordonnées de contact", fontSize = 14.sp, color = EcoTextSecondary, modifier = Modifier.padding(bottom = 16.dp))
+            Text("Vos coordonnées de contact", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(bottom = 16.dp))
 
             EcoCard {
-                Text("Nom complet", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Nom complet", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = fullName,
                     onValueChange = { fullName = it },
-                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = EcoGreenPrimary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text("Adresse e-mail", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Adresse e-mail", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = email,
                     onValueChange = { email = it },
-                    leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Email, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = EcoGreenPrimary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                Text("Téléphone", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = EcoTextSecondary)
+                Text("Téléphone", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Spacer(modifier = Modifier.height(4.dp))
                 OutlinedTextField(
                     value = phone,
                     onValueChange = { phone = it },
-                    leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null, tint = EcoTextMuted) },
+                    leadingIcon = { Icon(Icons.Default.Phone, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
-                    colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = EcoGreenPrimary, unfocusedBorderColor = EcoBorderColor)
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = EcoGreenPrimary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                    )
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -116,7 +121,7 @@ fun PersonalInfoScreen(
                 Text(
                     text = "Ces coordonnées servent à la connexion et aux messages liés à votre compte. Toute modification du contact doit être vérifiée.",
                     fontSize = 12.sp,
-                    color = EcoTextMuted
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -144,7 +149,7 @@ fun PersonalInfoScreen(
                             Spacer(modifier = Modifier.width(8.dp))
                             Column {
                                 Text("Modifications enregistrées", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
-                                Text("Vos coordonnées ont été mises à jour.", fontSize = 12.sp, color = EcoTextSecondary)
+                                Text("Vos coordonnées ont été mises à jour.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                         }
                     }

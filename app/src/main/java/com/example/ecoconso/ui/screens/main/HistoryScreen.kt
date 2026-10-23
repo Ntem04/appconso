@@ -20,7 +20,9 @@ import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,13 +34,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ecoconso.ui.components.EcoBottomNavBar
 import com.example.ecoconso.ui.components.EcoCard
 import com.example.ecoconso.ui.components.EcoTopAppBar
-import com.example.ecoconso.ui.theme.EcoBackgroundLight
-import com.example.ecoconso.ui.theme.EcoBorderColor
 import com.example.ecoconso.ui.theme.EcoGreenPrimary
-import com.example.ecoconso.ui.theme.EcoSurfaceWhite
-import com.example.ecoconso.ui.theme.EcoTextMuted
-import com.example.ecoconso.ui.theme.EcoTextPrimary
-import com.example.ecoconso.ui.theme.EcoTextSecondary
 
 data class DailyHistoryItem(
     val day: String,
@@ -68,28 +64,52 @@ fun HistoryScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(EcoBackgroundLight)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
                 .padding(20.dp)
         ) {
             // Month selector
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(EcoSurfaceWhite)
-                    .padding(12.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.surface,
+                border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
             ) {
-                Icon(Icons.Default.ChevronLeft, contentDescription = null, tint = EcoTextSecondary, modifier = Modifier.clickable { })
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.CalendarMonth, contentDescription = null, tint = EcoGreenPrimary)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text("Septembre 2025", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.ChevronLeft,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.clickable { }
+                    )
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.CalendarMonth,
+                            contentDescription = null,
+                            tint = EcoGreenPrimary
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "Septembre 2025",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                    Icon(
+                        imageVector = Icons.Default.ChevronRight,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.clickable { }
+                    )
                 }
-                Icon(Icons.Default.ChevronRight, contentDescription = null, tint = EcoTextSecondary, modifier = Modifier.clickable { })
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -101,22 +121,50 @@ fun HistoryScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column {
-                        Text("Consommation du mois", fontSize = 13.sp, color = EcoTextSecondary)
+                        Text(
+                            text = "Consommation du mois",
+                            fontSize = 13.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("0 kWh", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoGreenPrimary)
+                        Text(
+                            text = "0 kWh",
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = EcoGreenPrimary
+                        )
                     }
                     Column(horizontalAlignment = Alignment.End) {
-                        Text("Coût estimé", fontSize = 13.sp, color = EcoTextSecondary)
+                        Text(
+                            text = "Coût estimé",
+                            fontSize = 13.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text("0 FCFA", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text(
+                            text = "0 FCFA",
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text("Consommation par jour", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
-            Text("Les 7 derniers jours", fontSize = 12.sp, color = EcoTextSecondary, modifier = Modifier.padding(bottom = 12.dp))
+            Text(
+                text = "Consommation par jour",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            Text(
+                text = "Les 7 derniers jours",
+                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(bottom = 12.dp)
+            )
 
             // History List Card
             EcoCard {
@@ -129,13 +177,28 @@ fun HistoryScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column {
-                            Text(item.day, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = EcoTextPrimary)
-                            Text(item.kwh, fontSize = 12.sp, color = EcoGreenPrimary, fontWeight = FontWeight.Medium)
+                            Text(
+                                text = item.day,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = item.kwh,
+                                fontSize = 12.sp,
+                                color = EcoGreenPrimary,
+                                fontWeight = FontWeight.Medium
+                            )
                         }
-                        Text(item.cost, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = EcoTextPrimary)
+                        Text(
+                            text = item.cost,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                     if (index < historyList.size - 1) {
-                        HorizontalDivider(color = EcoBorderColor)
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outline)
                     }
                 }
             }
@@ -145,7 +208,7 @@ fun HistoryScreen(
             Text(
                 text = "Les coûts sont estimés selon votre tarif en vigueur.",
                 fontSize = 12.sp,
-                color = EcoTextMuted
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(16.dp))

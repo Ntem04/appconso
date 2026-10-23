@@ -18,8 +18,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material.icons.outlined.ElectricBolt
 import androidx.compose.material.icons.outlined.EnergySavingsLeaf
+import androidx.compose.material.icons.outlined.LightMode
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -141,12 +143,25 @@ fun HomeScreen(
                                 )
                             }
 
-                            IconButton(onClick = onNavigateToNotifications) {
-                                Icon(
-                                    imageVector = Icons.Outlined.Notifications,
-                                    contentDescription = "Notifications",
-                                    tint = MaterialTheme.colorScheme.onBackground
-                                )
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                val systemInDark = androidx.compose.foundation.isSystemInDarkTheme()
+                                val isDark = com.example.ecoconso.ui.theme.ThemeManager.isDarkModeManual ?: systemInDark
+
+                                IconButton(onClick = { com.example.ecoconso.ui.theme.ThemeManager.toggleDarkMode(!isDark) }) {
+                                    Icon(
+                                        imageVector = if (isDark) Icons.Outlined.LightMode else Icons.Outlined.DarkMode,
+                                        contentDescription = "Mode Sombre",
+                                        tint = MaterialTheme.colorScheme.onBackground
+                                    )
+                                }
+
+                                IconButton(onClick = onNavigateToNotifications) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.Notifications,
+                                        contentDescription = "Notifications",
+                                        tint = MaterialTheme.colorScheme.onBackground
+                                    )
+                                }
                             }
                         }
 
