@@ -191,7 +191,7 @@ fun HomeScreen(
                         Card(
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(20.dp),
-                            colors = CardDefaults.cardColors(containerColor = EcoGreenPrimary),
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
                             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
                         ) {
                             Column(modifier = Modifier.padding(20.dp)) {
@@ -352,8 +352,8 @@ fun HomeScreen(
 
                             EcoBarChart(
                                 items = weeklyBarItems,
-                                barColor = EcoGreenPrimary,
-                                highlightColor = EcoGreenPrimary,
+                                barColor = MaterialTheme.colorScheme.primary,
+                                highlightColor = MaterialTheme.colorScheme.primary,
                                 chartHeight = 120
                             )
 
@@ -392,7 +392,7 @@ fun HomeScreen(
                                 Icon(
                                     imageVector = Icons.Outlined.EnergySavingsLeaf,
                                     contentDescription = null,
-                                    tint = EcoGreenPrimary,
+                                    tint = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier.size(28.dp)
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
@@ -401,7 +401,7 @@ fun HomeScreen(
                                         text = "Un petit geste, une grande économie",
                                         fontSize = 14.sp,
                                         fontWeight = FontWeight.Bold,
-                                        color = EcoGreenPrimary
+                                        color = MaterialTheme.colorScheme.primary
                                     )
                                     Spacer(modifier = Modifier.height(2.dp))
                                     Text(

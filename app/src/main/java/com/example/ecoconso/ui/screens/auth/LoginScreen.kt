@@ -196,7 +196,7 @@ fun LoginScreen(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedTextColor = MaterialTheme.colorScheme.onSurface,
                     unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                    focusedBorderColor = EcoGreenPrimary,
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                     focusedContainerColor = MaterialTheme.colorScheme.surface,
                     unfocusedContainerColor = MaterialTheme.colorScheme.surface
@@ -241,7 +241,7 @@ fun LoginScreen(
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedTextColor = MaterialTheme.colorScheme.onSurface,
                     unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-                    focusedBorderColor = EcoGreenPrimary,
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                     focusedContainerColor = MaterialTheme.colorScheme.surface,
                     unfocusedContainerColor = MaterialTheme.colorScheme.surface
@@ -262,7 +262,7 @@ fun LoginScreen(
                         checked = rememberMe,
                         onCheckedChange = { rememberMe = it },
                         colors = CheckboxDefaults.colors(
-                            checkedColor = EcoGreenPrimary,
+                            checkedColor = MaterialTheme.colorScheme.primary,
                             uncheckedColor = MaterialTheme.colorScheme.outline
                         )
                     )
@@ -277,7 +277,7 @@ fun LoginScreen(
                     text = "Mot de passe oublié ?",
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
-                    color = EcoGreenPrimary,
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.clickable { onNavigateToForgotPassword() }
                 )
             }
@@ -291,7 +291,7 @@ fun LoginScreen(
                     .fillMaxWidth()
                     .height(52.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
                 Text(
                     text = "Se connecter",
@@ -318,7 +318,7 @@ fun LoginScreen(
                     text = "S'inscrire",
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
-                    color = EcoGreenPrimary,
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.clickable { onNavigateToRegister() }
                 )
             }
@@ -337,7 +337,7 @@ fun LoginScreen(
                     Icon(
                         imageVector = Icons.Outlined.EnergySavingsLeaf,
                         contentDescription = null,
-                        tint = EcoGreenPrimary,
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(24.dp)
                     )
                     Spacer(modifier = Modifier.width(12.dp))

@@ -104,7 +104,7 @@ fun EcoStatCard(
                             MaterialTheme.colorScheme.errorContainer
                         }
                         val badgeColor = if (isPositiveChange) {
-                            EcoGreenPrimary
+                            MaterialTheme.colorScheme.primary
                         } else {
                             MaterialTheme.colorScheme.onErrorContainer
                         }

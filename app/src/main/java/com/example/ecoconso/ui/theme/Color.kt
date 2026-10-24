@@ -21,6 +21,6 @@ val EcoTextMuted = Color(0xFF94A3B8)
 val EcoBorderColor = Color(0xFFE2E8F0)
 val EcoCardBg = Color(0xFFFFFFFF)
 
-val EcoGreenPrimaryDark = Color(0xFF3B8A73)
+val EcoGreenPrimaryDark = Color(0xFF10B981)
 val EcoBackgroundDark = Color(0xFF0F172A)
 val EcoSurfaceDark = Color(0xFF1E293B)

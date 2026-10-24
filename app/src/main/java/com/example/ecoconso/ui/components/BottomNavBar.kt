@@ -88,9 +88,9 @@ fun EcoBottomNavBar(
                 },
                 label = { Text(text = item.title) },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = EcoGreenPrimary,
-                    selectedTextColor = EcoGreenPrimary,
-                    indicatorColor = EcoGreenPrimary.copy(alpha = 0.12f),
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    indicatorColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
                     unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                     unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                 )

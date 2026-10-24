@@ -110,7 +110,7 @@ fun RegisterScreen(
                     colors = OutlinedTextFieldDefaults.colors(
     focusedTextColor = MaterialTheme.colorScheme.onSurface,
     unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-    focusedBorderColor = EcoGreenPrimary,
+    focusedBorderColor = MaterialTheme.colorScheme.primary,
     unfocusedBorderColor = MaterialTheme.colorScheme.outline,
     focusedContainerColor = MaterialTheme.colorScheme.surface,
     unfocusedContainerColor = MaterialTheme.colorScheme.surface
@@ -132,7 +132,7 @@ fun RegisterScreen(
                     colors = OutlinedTextFieldDefaults.colors(
     focusedTextColor = MaterialTheme.colorScheme.onSurface,
     unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-    focusedBorderColor = EcoGreenPrimary,
+    focusedBorderColor = MaterialTheme.colorScheme.primary,
     unfocusedBorderColor = MaterialTheme.colorScheme.outline,
     focusedContainerColor = MaterialTheme.colorScheme.surface,
     unfocusedContainerColor = MaterialTheme.colorScheme.surface
@@ -154,7 +154,7 @@ fun RegisterScreen(
                     colors = OutlinedTextFieldDefaults.colors(
     focusedTextColor = MaterialTheme.colorScheme.onSurface,
     unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-    focusedBorderColor = EcoGreenPrimary,
+    focusedBorderColor = MaterialTheme.colorScheme.primary,
     unfocusedBorderColor = MaterialTheme.colorScheme.outline,
     focusedContainerColor = MaterialTheme.colorScheme.surface,
     unfocusedContainerColor = MaterialTheme.colorScheme.surface
@@ -176,7 +176,7 @@ fun RegisterScreen(
                     colors = OutlinedTextFieldDefaults.colors(
     focusedTextColor = MaterialTheme.colorScheme.onSurface,
     unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-    focusedBorderColor = EcoGreenPrimary,
+    focusedBorderColor = MaterialTheme.colorScheme.primary,
     unfocusedBorderColor = MaterialTheme.colorScheme.outline,
     focusedContainerColor = MaterialTheme.colorScheme.surface,
     unfocusedContainerColor = MaterialTheme.colorScheme.surface
@@ -200,7 +200,7 @@ fun RegisterScreen(
                     colors = OutlinedTextFieldDefaults.colors(
     focusedTextColor = MaterialTheme.colorScheme.onSurface,
     unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
-    focusedBorderColor = EcoGreenPrimary,
+    focusedBorderColor = MaterialTheme.colorScheme.primary,
     unfocusedBorderColor = EcoRedError,
     focusedContainerColor = MaterialTheme.colorScheme.surface,
     unfocusedContainerColor = MaterialTheme.colorScheme.surface
@@ -214,7 +214,7 @@ fun RegisterScreen(
                     Checkbox(
                         checked = acceptTerms,
                         onCheckedChange = { acceptTerms = it },
-                        colors = CheckboxDefaults.colors(checkedColor = EcoGreenPrimary)
+                        colors = CheckboxDefaults.colors(checkedColor = MaterialTheme.colorScheme.primary)
                     )
                     Text(
                         text = "J'accepte les conditions d'utilisation et la politique de confidentialité.",
@@ -229,7 +229,7 @@ fun RegisterScreen(
                     onClick = onRegisterSuccess,
                     modifier = Modifier.fillMaxWidth().height(50.dp),
                     shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = EcoGreenPrimary)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
                     Text("Créer mon compte", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onPrimary)
                 }
@@ -245,7 +245,7 @@ fun RegisterScreen(
                         text = "Se connecter",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
-                        color = EcoGreenPrimary,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable { onNavigateBack() }
                     )
                 }

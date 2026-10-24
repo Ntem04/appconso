@@ -139,7 +139,7 @@ fun EcoBarChart(
                 Text(
                     text = item.label,
                     fontSize = 11.sp,
-                    color = if (item.isHighlighted && !allZero) EcoGreenPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = if (item.isHighlighted && !allZero) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = if (item.isHighlighted && !allZero) FontWeight.Bold else FontWeight.Normal,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.width(24.dp)
