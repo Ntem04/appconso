@@ -1,0 +1,66 @@
+// Prisma Schema Configuration for PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String         @id @default(uuid())
+  fullName     String
+  email        String         @unique
+  phone        String?        @unique
+  password     String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  meters       Meter[]
+  consommations Consommation[]
+  appliances   Appliance[]
+}
+
+model Meter {
+  id                 String   @id @default(uuid())
+  meterNumber        String   @unique
+  subscribedPowerKva Int      @default(6)
+  userId             String
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt          DateTime @default(now())
+}
+
+model Consommation {
+  id                 String       @id @default(uuid())
+  totalKwh           Float        @default(0)
+  percentVsYesterday Float        @default(0)
+  estimatedCostFcfa  Int          @default(0)
+  activePowerKw      Float        @default(0)
+  subscribedPowerKva Int          @default(6)
+  weeklyTotalKwh     Float        @default(0)
+  date               DateTime     @default(now())
+  userId             String
+  user               User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weeklyData         WeeklyData[]
+  createdAt          DateTime     @default(now())
+}
+
+model WeeklyData {
+  id             String       @id @default(uuid())
+  day            String
+  kwh            Float        @default(0)
+  consommationId String
+  consommation   Consommation @relation(fields: [consommationId], references: [id], onDelete: Cascade)
+}
+
+model Appliance {
+  id          String   @id @default(uuid())
+  category    String
+  description String
+  percentage  Int      @default(0)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+}
