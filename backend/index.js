@@ -18,11 +18,11 @@ app.get('/', (req, res) => {
 // Mock: Données de consommation de la page d'accueil
 app.get('/api/consommation/today', (req, res) => {
     res.json({
-        totalKwh: 0,
-        percentVsYesterday: 0,
-        estimatedCostFcfa: 0,
-        activePowerKw: 0,
-        subscribedPowerKva: 0,
+        totalKwh: 12.4,
+        percentVsYesterday: -8,
+        estimatedCostFcfa: 2850,
+        activePowerKw: 3.2,
+        subscribedPowerKva: 6,
         weeklyTotalKwh: 0,
         weeklyData: [
             { day: "Lun", kwh: 0 },
