@@ -54,6 +54,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.Image
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.example.ecoconso.R
 import com.example.ecoconso.ui.theme.EcoBackgroundLight
 import com.example.ecoconso.ui.theme.EcoBorderColor
 import com.example.ecoconso.ui.theme.EcoGreenLight
@@ -80,47 +85,72 @@ fun LoginScreen(
             .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
     ) {
-        // --- Dark Green Header Section ---
+        // --- Dark Green Header Section with Image & Green Gradient ---
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(EcoGreenPrimary)
-                .padding(vertical = 48.dp, horizontal = 24.dp),
+                .height(280.dp),
             contentAlignment = Alignment.Center
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            // Image de fond
+            Image(
+                painter = painterResource(id = R.drawable.bg_login_header),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.matchParentSize()
+            )
+
+            // Dégradé vert élégant en superposition
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                EcoGreenPrimary.copy(alpha = 0.70f),
+                                EcoGreenPrimary.copy(alpha = 0.92f)
+                            )
+                        )
+                    )
+            )
+
+            // Contenu du Header
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(vertical = 32.dp, horizontal = 24.dp)
+            ) {
                 // Circle logo with border
                 Box(
                     modifier = Modifier
                         .size(72.dp)
                         .clip(CircleShape)
-                        .border(2.dp, MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f), CircleShape)
-                        .background(Color.Transparent),
+                        .border(2.dp, Color.White.copy(alpha = 0.6f), CircleShape)
+                        .background(Color.White.copy(alpha = 0.15f)),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.ElectricBolt,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.primaryContainer,
+                        tint = Color.White,
                         modifier = Modifier.size(36.dp)
                     )
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
                     text = "E-Consommation",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = MaterialTheme.colorScheme.onPrimary
+                    color = Color.White
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
                     text = "Suivez votre consommation électrique\net maîtrisez votre énergie au quotidien.",
                     fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.85f),
+                    color = Color.White.copy(alpha = 0.9f),
                     textAlign = TextAlign.Center,
                     lineHeight = 20.sp
                 )
