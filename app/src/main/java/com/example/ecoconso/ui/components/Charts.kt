@@ -57,6 +57,24 @@ fun EcoBarChart(
     highlightColor: Color = EcoSkyBlue,
     chartHeight: Int = 140
 ) {
+    if (items.isEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(chartHeight.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Aucune donnée disponible pour l'instant",
+                fontSize = 13.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+        return
+    }
+
+    val allZero = items.all { it.value <= 0f }
+
     Column(modifier = Modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier
@@ -67,7 +85,11 @@ fun EcoBarChart(
             verticalAlignment = Alignment.Bottom
         ) {
             items.forEach { item ->
-                val ratio = (item.value / maxVal).coerceIn(0.05f, 1f)
+                val ratio = if (maxVal > 0f && item.value > 0f) {
+                    (item.value / maxVal).coerceIn(0.05f, 1f)
+                } else {
+                    0f
+                }
                 val activeColor = if (item.isHighlighted) highlightColor else barColor
 
                 Column(
@@ -75,7 +97,7 @@ fun EcoBarChart(
                     verticalArrangement = Arrangement.Bottom,
                     modifier = Modifier.fillMaxHeight()
                 ) {
-                    if (item.isHighlighted) {
+                    if (item.isHighlighted && item.value > 0f) {
                         Text(
                             text = "${item.value}",
                             fontSize = 10.sp,
@@ -85,13 +107,24 @@ fun EcoBarChart(
                         )
                         Spacer(modifier = Modifier.height(2.dp))
                     }
-                    Box(
-                        modifier = Modifier
-                            .width(18.dp)
-                            .fillMaxHeight(ratio)
-                            .clip(RoundedCornerShape(topStart = 6.dp, topEnd = 6.dp))
-                            .background(activeColor)
-                    )
+                    if (ratio > 0f) {
+                        Box(
+                            modifier = Modifier
+                                .width(18.dp)
+                                .fillMaxHeight(ratio)
+                                .clip(RoundedCornerShape(topStart = 6.dp, topEnd = 6.dp))
+                                .background(activeColor)
+                        )
+                    } else {
+                        // Marqueur discret pour barre vide / 0 kWh
+                        Box(
+                            modifier = Modifier
+                                .width(18.dp)
+                                .height(4.dp)
+                                .clip(RoundedCornerShape(2.dp))
+                                .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.35f))
+                        )
+                    }
                 }
             }
         }
@@ -106,8 +139,8 @@ fun EcoBarChart(
                 Text(
                     text = item.label,
                     fontSize = 11.sp,
-                    color = if (item.isHighlighted) EcoGreenPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = if (item.isHighlighted) FontWeight.Bold else FontWeight.Normal,
+                    color = if (item.isHighlighted && !allZero) EcoGreenPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontWeight = if (item.isHighlighted && !allZero) FontWeight.Bold else FontWeight.Normal,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.width(24.dp)
                 )
@@ -118,12 +151,23 @@ fun EcoBarChart(
 
 @Composable
 fun EcoLineSparkline(
-    dataPoints: List<Float>,
+    dataPoints: List<Float> = emptyList(),
     lineColor: Color = Color.White,
     modifier: Modifier = Modifier
 ) {
     Canvas(modifier = modifier) {
-        if (dataPoints.isEmpty()) return@Canvas
+        if (dataPoints.isEmpty() || dataPoints.all { it <= 0f }) {
+            // Ligne de base subtile pour graphe initialisé à vide
+            val y = size.height * 0.75f
+            drawLine(
+                color = lineColor.copy(alpha = 0.35f),
+                start = androidx.compose.ui.geometry.Offset(0f, y),
+                end = androidx.compose.ui.geometry.Offset(size.width, y),
+                strokeWidth = 2.dp.toPx(),
+                cap = StrokeCap.Round
+            )
+            return@Canvas
+        }
         val min = dataPoints.minOrNull() ?: 0f
         val max = dataPoints.maxOrNull() ?: 100f
         val range = (max - min).coerceAtLeast(1f)

@@ -272,8 +272,8 @@ fun HomeScreen(
                                     )
                                     Spacer(modifier = Modifier.height(6.dp))
                                     Text(
-                                        text = String.format(Locale.FRANCE, "%.2f €", data.estimatedCostFcfa / 1000f),
-                                        fontSize = 18.sp,
+                                        text = String.format(Locale.FRANCE, "%,d FCFA", data.estimatedCostFcfa),
+                                        fontSize = 15.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
